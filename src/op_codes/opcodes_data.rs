@@ -4,392 +4,62 @@ use std::collections::HashMap;
 pub fn get_opcodes() -> HashMap<u8, Opcode> {
     let mut opcodes: HashMap<u8, Opcode> = HashMap::new();
 
-    opcodes.insert(
-        0x00,
-        Opcode {
-            name: "STOP".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x01,
-        Opcode {
-            name: "ADD".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x02,
-        Opcode {
-            name: "MUL".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x03,
-        Opcode {
-            name: "SUB".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x04,
-        Opcode {
-            name: "DIV".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x05,
-        Opcode {
-            name: "SDIV".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x06,
-        Opcode {
-            name: "MOD".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x07,
-        Opcode {
-            name: "SMOD".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x08,
-        Opcode {
-            name: "ADDMOD".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x09,
-        Opcode {
-            name: "MULMOD".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x0a,
-        Opcode {
-            name: "EXP".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x0b,
-        Opcode {
-            name: "SIGNEXTEND".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x10,
-        Opcode {
-            name: "LT".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x11,
-        Opcode {
-            name: "GT".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x12,
-        Opcode {
-            name: "SLT".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x13,
-        Opcode {
-            name: "SGT".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x14,
-        Opcode {
-            name: "EQ".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x15,
-        Opcode {
-            name: "ISZERO".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x16,
-        Opcode {
-            name: "AND".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x17,
-        Opcode {
-            name: "OR".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x18,
-        Opcode {
-            name: "XOR".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x19,
-        Opcode {
-            name: "NOT".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x1a,
-        Opcode {
-            name: "BYTE".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x20,
-        Opcode {
-            name: "SHA3".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x30,
-        Opcode {
-            name: "ADDRESS".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x31,
-        Opcode {
-            name: "BALANCE".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x32,
-        Opcode {
-            name: "ORIGIN".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x33,
-        Opcode {
-            name: "CALLER".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x34,
-        Opcode {
-            name: "CALLVALUE".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x35,
-        Opcode {
-            name: "CALLDATALOAD".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x36,
-        Opcode {
-            name: "CALLDATASIZE".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x37,
-        Opcode {
-            name: "CALLDATACOPY".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x38,
-        Opcode {
-            name: "CODESIZE".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x39,
-        Opcode {
-            name: "CODECOPY".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x3a,
-        Opcode {
-            name: "GASPRICE".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x3b,
-        Opcode {
-            name: "EXTCODESIZE".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x3c,
-        Opcode {
-            name: "EXTCODECOPY".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x40,
-        Opcode {
-            name: "BLOCKHASH".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x41,
-        Opcode {
-            name: "COINBASE".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x42,
-        Opcode {
-            name: "TIMESTAMP".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x43,
-        Opcode {
-            name: "NUMBER".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x44,
-        Opcode {
-            name: "DIFFICULTY".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x45,
-        Opcode {
-            name: "GASLIMIT".into(),
-            word_size: None,
-        },
-    );
+    opcodes.insert(0x00, Opcode::new("STOP".into()));
+    opcodes.insert(0x01, Opcode::new("ADD".into()));
+    opcodes.insert(0x02, Opcode::new("MUL".into()));
+    opcodes.insert(0x03, Opcode::new("SUB".into()));
+    opcodes.insert(0x04, Opcode::new("DIV".into()));
+    opcodes.insert(0x05, Opcode::new("SDIV".into()));
+    opcodes.insert(0x06, Opcode::new("MOD".into()));
+    opcodes.insert(0x07, Opcode::new("SMOD".into()));
+    opcodes.insert(0x08, Opcode::new("ADDMOD".into()));
+    opcodes.insert(0x09, Opcode::new("MULMOD".into()));
+    opcodes.insert(0x0a, Opcode::new("EXP".into()));
+    opcodes.insert(0x0b, Opcode::new("SIGNEXTEND".into()));
+    opcodes.insert(0x10, Opcode::new("LT".into()));
+    opcodes.insert(0x11, Opcode::new("GT".into()));
+    opcodes.insert(0x12, Opcode::new("SLT".into()));
+    opcodes.insert(0x13, Opcode::new("SGT".into()));
+    opcodes.insert(0x14, Opcode::new("EQ".into()));
+    opcodes.insert(0x15, Opcode::new("ISZERO".into()));
+    opcodes.insert(0x16, Opcode::new("AND".into()));
+    opcodes.insert(0x17, Opcode::new("OR".into()));
+    opcodes.insert(0x18, Opcode::new("XOR".into()));
+    opcodes.insert(0x19, Opcode::new("NOT".into()));
+    opcodes.insert(0x1a, Opcode::new("BYTE".into()));
+    opcodes.insert(0x20, Opcode::new("SHA3".into()));
+    opcodes.insert(0x30, Opcode::new("ADDRESS".into()));
+    opcodes.insert(0x31, Opcode::new("BALANCE".into()));
+    opcodes.insert(0x32, Opcode::new("ORIGIN".into()));
+    opcodes.insert(0x33, Opcode::new("CALLER".into()));
+    opcodes.insert(0x34, Opcode::new("CALLVALUE".into()));
+    opcodes.insert(0x35, Opcode::new("CALLDATALOAD".into()));
+    opcodes.insert(0x36, Opcode::new("CALLDATASIZE".into()));
+    opcodes.insert(0x37, Opcode::new("CALLDATACOPY".into()));
+    opcodes.insert(0x38, Opcode::new("CODESIZE".into()));
+    opcodes.insert(0x39, Opcode::new("CODECOPY".into()));
+    opcodes.insert(0x3a, Opcode::new("GASPRICE".into()));
+    opcodes.insert(0x3b, Opcode::new("EXTCODESIZE".into()));
+    opcodes.insert(0x3c, Opcode::new("EXTCODECOPY".into()));
+    opcodes.insert(0x40, Opcode::new("BLOCKHASH".into()));
+    opcodes.insert(0x41, Opcode::new("COINBASE".into()));
+    opcodes.insert(0x42, Opcode::new("TIMESTAMP".into()));
+    opcodes.insert(0x43, Opcode::new("NUMBER".into()));
+    opcodes.insert(0x44, Opcode::new("DIFFICULTY".into()));
+    opcodes.insert(0x45, Opcode::new("GASLIMIT".into()));
     // Log and memory operations ...
-    opcodes.insert(
-        0x50,
-        Opcode {
-            name: "POP".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x51,
-        Opcode {
-            name: "MLOAD".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x52,
-        Opcode {
-            name: "MSTORE".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x53,
-        Opcode {
-            name: "MSTORE8".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x54,
-        Opcode {
-            name: "SLOAD".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x55,
-        Opcode {
-            name: "SSTORE".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x56,
-        Opcode {
-            name: "JUMP".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x57,
-        Opcode {
-            name: "JUMPI".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x58,
-        Opcode {
-            name: "PC".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x59,
-        Opcode {
-            name: "MSIZE".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x5a,
-        Opcode {
-            name: "GAS".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0x5b,
-        Opcode {
-            name: "JUMPDEST".into(),
-            word_size: None,
-        },
-    );
+    opcodes.insert(0x50, Opcode::new("POP".into()));
+    opcodes.insert(0x51, Opcode::new("MLOAD".into()));
+    opcodes.insert(0x52, Opcode::new("MSTORE".into()));
+    opcodes.insert(0x53, Opcode::new("MSTORE8".into()));
+    opcodes.insert(0x54, Opcode::new("SLOAD".into()));
+    opcodes.insert(0x55, Opcode::new("SSTORE".into()));
+    opcodes.insert(0x56, Opcode::new("JUMP".into()));
+    opcodes.insert(0x57, Opcode::new("JUMPI".into()));
+    opcodes.insert(0x58, Opcode::new("PC".into()));
+    opcodes.insert(0x59, Opcode::new("MSIZE".into()));
+    opcodes.insert(0x5a, Opcode::new("GAS".into()));
+    opcodes.insert(0x5b, Opcode::new("JUMPDEST".into()));
 
     // Push operations ...
     for n in 0..33 {
@@ -398,107 +68,36 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
             Opcode {
                 name: format!("PUSH{}", n).into(),
                 word_size: Some(n),
+                word: None,
             },
         );
     }
 
     // Duplication operations ...
     for n in 1..17 {
-        opcodes.insert(
-            0x7F + n,
-            Opcode {
-                name: format!("DUP{}", n).into(),
-                word_size: None,
-            },
-        );
+        opcodes.insert(0x7F + n, Opcode::new(format!("DUP{}", n).into()));
     }
 
     // Exchange operations ...
     for n in 1..17 {
-        opcodes.insert(
-            0x8F + n,
-            Opcode {
-                name: format!("SWAP{}", n).into(),
-                word_size: None,
-            },
-        );
+        opcodes.insert(0x8F + n, Opcode::new(format!("SWAP{}", n).into()));
     }
 
     // Logging operations ...
     for n in 0..5 {
-        opcodes.insert(
-            0xa0 + n,
-            Opcode {
-                name: format!("LOG{}", n).into(),
-                word_size: None,
-            },
-        );
+        opcodes.insert(0xa0 + n, Opcode::new(format!("LOG{}", n).into()));
     }
 
     // Some special purpose opcodes
-    opcodes.insert(
-        0xf0,
-        Opcode {
-            name: "CREATE".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0xf1,
-        Opcode {
-            name: "CALL".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0xf2,
-        Opcode {
-            name: "CALLCODE".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0xf3,
-        Opcode {
-            name: "RETURN".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0xf4,
-        Opcode {
-            name: "DELEGATECALL".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0xf5,
-        Opcode {
-            name: "CREATE2".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0xfa,
-        Opcode {
-            name: "STATICCALL".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0xfd,
-        Opcode {
-            name: "REVERT".into(),
-            word_size: None,
-        },
-    );
-    opcodes.insert(
-        0xff,
-        Opcode {
-            name: "SELFDESTRUCT".into(),
-            word_size: None,
-        },
-    );
+    opcodes.insert(0xf0, Opcode::new("CREATE".into()));
+    opcodes.insert(0xf1, Opcode::new("CALL".into()));
+    opcodes.insert(0xf2, Opcode::new("CALLCODE".into()));
+    opcodes.insert(0xf3, Opcode::new("RETURN".into()));
+    opcodes.insert(0xf4, Opcode::new("DELEGATECALL".into()));
+    opcodes.insert(0xf5, Opcode::new("CREATE2".into()));
+    opcodes.insert(0xfa, Opcode::new("STATICCALL".into()));
+    opcodes.insert(0xfd, Opcode::new("REVERT".into()));
+    opcodes.insert(0xff, Opcode::new("SELFDESTRUCT".into()));
 
     opcodes
 }

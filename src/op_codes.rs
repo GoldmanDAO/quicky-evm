@@ -2,10 +2,21 @@ use std::num::ParseIntError;
 
 mod opcodes_data;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct Opcode {
     pub name: String,
     pub word_size: Option<u8>,
+    pub word: Option<u32>,
+}
+
+impl Opcode {
+    fn new(name: String) -> Opcode {
+        Opcode {
+            name,
+            word_size: None,
+            word: None,
+        }
+    }
 }
 
 fn decode_hex(s: &str) -> Result<Vec<u8>, ParseIntError> {
