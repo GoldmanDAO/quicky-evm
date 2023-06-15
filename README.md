@@ -17,7 +17,7 @@ This project welcomes contributions from one and all. Here’s how you can help:
 2. **Clone 🐑 it Locally**: Get it on your machine.
 
     ```sh
-    git clone https://github.com/YOUR-USERNAME/ethereum-bytecode-decoder.git
+    git clone https://github.com/GoldmanDAO/op-decoder.git
     ```
 
 3. **Create a New Branch 🌲**: Make sure each contribution has its own branch!
