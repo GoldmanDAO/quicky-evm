@@ -6,7 +6,7 @@ fn main() {
     match op_codes::parse_bytecode(bytecode) {
         Ok(parsed) => {
             for opcode in parsed {
-                println!("{}, {:?}", opcode.name, opcode.word);
+                println!("{:?}", opcode);
             }
         }
         Err(error) => {

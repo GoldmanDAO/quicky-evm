@@ -1,8 +1,9 @@
+use std::fmt;
 use std::num::ParseIntError;
 
 mod opcodes_data;
 
-#[derive(Debug, Clone, Default)]
+#[derive(Clone, Default)]
 pub struct Opcode {
     pub name: String,
     pub word_size: Option<u8>,
@@ -19,6 +20,15 @@ impl Opcode {
     }
 }
 
+impl fmt::Debug for Opcode {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("Opcode")
+            .field("name: ", &self.name)
+            .field("value", &self.word)
+            .finish()
+    }
+}
+
 fn decode_hex(s: &str) -> Result<Vec<u8>, ParseIntError> {
     (0..s.len())
         .step_by(2)
@@ -32,30 +42,16 @@ pub fn parse_bytecode(bytecode_string: &str) -> Result<Vec<Opcode>, String> {
     let bytecode =
         decode_hex(bytecode_string).map_err(|e| format!("Failed to decode hex: {}", e))?;
 
-    /*
-    bytecode
-        .iter()
-        .map(|byte| {
-            opcodes
-                .get(byte)
-                .cloned()
-                .ok_or_else(|| format!("Unknown opcode: 0x{:02x}", byte))
-        })
-        .collect::<Result<Vec<Opcode>, String>>() // Note this change
-    */
     let mut result: Vec<Opcode> = Vec::new();
     let mut error: String = String::from("");
 
     let mut it = bytecode.iter();
     while let Some(pos) = it.next() {
-        let opcode = opcodes.get(pos).cloned();
-
-        if let Some(code) = opcode {
+        if let Some(code) = opcodes.get(pos).cloned() {
             if let Some(size) = code.word_size {
-                let mut word: Vec<u8> = Vec::new();
-                for _ in 0..size {
-                    word.push(it.next().unwrap().clone());
-                }
+                // TODO: Better error handling here
+                let word: Vec<u8> = (0..size).map(|_| it.next().unwrap().clone()).collect();
+
                 result.push(Opcode {
                     name: code.name,
                     word_size: code.word_size,
