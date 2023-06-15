@@ -1,7 +1,7 @@
 mod op_codes;
 
 fn main() {
-    let bytecode = "0001";
+    let bytecode = "000169808A";
 
     match op_codes::parse_bytecode(bytecode) {
         Ok(parsed) => {

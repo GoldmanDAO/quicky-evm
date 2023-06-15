@@ -245,45 +245,46 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
             name: "JUMPDEST".into(),
         },
     );
-    // More opcodes ...
+
     // Push operations ...
-    opcodes.insert(
-        0x60,
-        Opcode {
-            name: "PUSH1".into(),
-        },
-    );
-    opcodes.insert(
-        0x61,
-        Opcode {
-            name: "PUSH2".into(),
-        },
-    );
-    // ... continue with PUSH3, PUSH4, etc. until PUSH32
+    for n in 0..33 {
+        opcodes.insert(
+            0x5F + n,
+            Opcode {
+                name: format!("PUSH{}", n).into(),
+            },
+        );
+    }
+
     // Duplication operations ...
-    opcodes.insert(
-        0x80,
-        Opcode {
-            name: "DUP1".into(),
-        },
-    );
-    // ... continue with DUP2, DUP3, etc. until DUP16
+    for n in 1..17 {
+        opcodes.insert(
+            0x80 + n,
+            Opcode {
+                name: format!("DUP{}", n).into(),
+            },
+        );
+    }
+
     // Exchange operations ...
-    opcodes.insert(
-        0x90,
-        Opcode {
-            name: "SWAP1".into(),
-        },
-    );
-    // ... continue with SWAP2, SWAP3, etc. until SWAP16
+    for n in 1..17 {
+        opcodes.insert(
+            0x90 + n,
+            Opcode {
+                name: format!("SWAP{}", n).into(),
+            },
+        );
+    }
+
     // Logging operations ...
-    opcodes.insert(
-        0xa0,
-        Opcode {
-            name: "LOG0".into(),
-        },
-    );
-    // ... continue with LOG1, LOG2, etc. until LOG4
+    for n in 0..5 {
+        opcodes.insert(
+            0xa0 + n,
+            Opcode {
+                name: format!("LOG{}", n).into(),
+            },
+        );
+    }
 
     // Some special purpose opcodes
     opcodes.insert(
