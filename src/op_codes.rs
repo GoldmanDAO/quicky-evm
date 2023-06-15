@@ -5,6 +5,7 @@ mod opcodes_data;
 #[derive(Debug, Clone)]
 pub struct Opcode {
     pub name: String,
+    pub word_size: Option<u8>,
 }
 
 fn decode_hex(s: &str) -> Result<Vec<u8>, ParseIntError> {
