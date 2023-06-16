@@ -21,7 +21,7 @@ impl fmt::Debug for OpcodeInfo {
                     .iter()
                     .map(|byte| format!("{:02X}", byte))
                     .collect::<Vec<String>>()
-                    .join(" "))
+                    .join(""))
                 .unwrap_or_else(|| String::from(""))
         )
     }
