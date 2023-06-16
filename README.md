@@ -30,17 +30,23 @@ This project welcomes contributions from one and all. Here’s how you can help:
 
 5. **Commit 💾**: Make it official.
 
+    We use a custom commit message system:
+    
+    - 🔥: New feature
+    - 🥸: Styling
+    - 🔧: Fix
+    - ✨: Code cleanup
     ```sh
-    git commit -m "Add a cool new feature"
+    git commit -m "🔥: Add a cool new feature"
     ```
 
-6. **Push 🚀**: Get it back up in your fork.
+7. **Push 🚀**: Get it back up in your fork.
 
     ```sh
     git push origin new-feature-branch
     ```
 
-7. **Pull Request 💌**: Now, let us know about the changes.
+8. **Pull Request 💌**: Now, let us know about the changes.
 
 We appreciate your effort, and we are excited to see what amazing additions you bring! 🎆
 
