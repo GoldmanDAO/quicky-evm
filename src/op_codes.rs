@@ -43,14 +43,22 @@ pub fn parse_bytecode(bytecode_string: &str) -> Result<Vec<Opcode>, String> {
         decode_hex(bytecode_string).map_err(|e| format!("Failed to decode hex: {}", e))?;
 
     let mut result: Vec<Opcode> = Vec::new();
-    let mut error: String = String::from("");
 
-    let mut it = bytecode.iter();
-    while let Some(pos) = it.next() {
-        if let Some(code) = opcodes.get(pos).cloned() {
+    let mut it = bytecode.iter().peekable();
+    while let Some(&pos) = it.next() {
+        if let Some(code) = opcodes.get(&pos).cloned() {
             if let Some(size) = code.word_size {
-                // TODO: Better error handling here
-                let word: Vec<u8> = (0..size).map(|_| it.next().unwrap().clone()).collect();
+                let mut word = Vec::new();
+                for _ in 0..size {
+                    if let Some(&byte) = it.next() {
+                        word.push(byte);
+                    } else {
+                        return Err(format!(
+                            "Unexpected end of bytecode. Opcode 0x{:02x} requires {} more byte(s).",
+                            pos, size
+                        ));
+                    }
+                }
 
                 result.push(Opcode {
                     name: code.name,
@@ -61,13 +69,9 @@ pub fn parse_bytecode(bytecode_string: &str) -> Result<Vec<Opcode>, String> {
                 result.push(code);
             }
         } else {
-            error = format!("Unknown opcode: 0x{:02x}", pos);
+            return Err(format!("Unknown opcode: 0x{:02x}", pos));
         }
     }
 
-    if !error.is_empty() {
-        Err(error)
-    } else {
-        Ok(result)
-    }
+    Ok(result)
 }
