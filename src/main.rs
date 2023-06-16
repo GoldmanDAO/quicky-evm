@@ -12,7 +12,7 @@ impl fmt::Debug for OpcodeInfo {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
             f,
-            "{:02X} {:<8} [{}]",
+            "{:02X} {:<8}\t[{}]",
             self.position,
             self.opcode_name,
             self.opcode_word
