@@ -27,6 +27,9 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
     opcodes.insert(0x18, Opcode::new("XOR".into()));
     opcodes.insert(0x19, Opcode::new("NOT".into()));
     opcodes.insert(0x1a, Opcode::new("BYTE".into()));
+    opcodes.insert(0x1b, Opcode::new("SHL".into()));
+    opcodes.insert(0x1c, Opcode::new("SHR".into()));
+    opcodes.insert(0x1d, Opcode::new("SAR".into()));
     opcodes.insert(0x20, Opcode::new("SHA3".into()));
     opcodes.insert(0x30, Opcode::new("ADDRESS".into()));
     opcodes.insert(0x31, Opcode::new("BALANCE".into()));
@@ -41,12 +44,18 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
     opcodes.insert(0x3a, Opcode::new("GASPRICE".into()));
     opcodes.insert(0x3b, Opcode::new("EXTCODESIZE".into()));
     opcodes.insert(0x3c, Opcode::new("EXTCODECOPY".into()));
+    opcodes.insert(0x3d, Opcode::new("RETURNDATASIZE".into()));
+    opcodes.insert(0x3e, Opcode::new("RETURNDATACOPY".into()));
+    opcodes.insert(0x3f, Opcode::new("EXTCODEHASH".into()));
     opcodes.insert(0x40, Opcode::new("BLOCKHASH".into()));
     opcodes.insert(0x41, Opcode::new("COINBASE".into()));
     opcodes.insert(0x42, Opcode::new("TIMESTAMP".into()));
     opcodes.insert(0x43, Opcode::new("NUMBER".into()));
     opcodes.insert(0x44, Opcode::new("DIFFICULTY".into()));
     opcodes.insert(0x45, Opcode::new("GASLIMIT".into()));
+    opcodes.insert(0x46, Opcode::new("CHAINID".into()));
+    opcodes.insert(0x47, Opcode::new("SELFBALANCE".into()));
+    opcodes.insert(0x48, Opcode::new("BASEFEE".into()));
     // Log and memory operations ...
     opcodes.insert(0x50, Opcode::new("POP".into()));
     opcodes.insert(0x51, Opcode::new("MLOAD".into()));
