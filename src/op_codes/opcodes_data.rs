@@ -106,6 +106,7 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
     opcodes.insert(0xf5, Opcode::new("CREATE2".into()));
     opcodes.insert(0xfa, Opcode::new("STATICCALL".into()));
     opcodes.insert(0xfd, Opcode::new("REVERT".into()));
+    opcodes.insert(0xfe, Opcode::new("INVALID".into()));
     opcodes.insert(0xff, Opcode::new("SELFDESTRUCT".into()));
 
     opcodes
