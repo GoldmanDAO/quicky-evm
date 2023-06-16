@@ -106,7 +106,30 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
     opcodes.insert(0xf5, Opcode::new("CREATE2".into()));
     opcodes.insert(0xfa, Opcode::new("STATICCALL".into()));
     opcodes.insert(0xfd, Opcode::new("REVERT".into()));
+
+    // INVALID ranges
+    fn is_in_invalid_range(opcode: u8) -> bool {
+        match opcode {
+            0x0c..=0x0f
+            | 0x1e..=0x1f
+            | 0x21..=0x2f
+            | 0x49..=0x4f
+            | 0x5c..=0x5f
+            | 0xa5..=0xef
+            | 0xf6..=0xf9
+            | 0xfb..=0xfc => true,
+            _ => false,
+        }
+    }
+
+    // Iterate through each opcode and insert "INVALID" if in the specified ranges
+    for opcode in 0x00..=0xff {
+        if is_in_invalid_range(opcode) {
+            opcodes.insert(opcode, Opcode::new("INVALID".into()));
+        }
+    }
     opcodes.insert(0xfe, Opcode::new("INVALID".into()));
+
     opcodes.insert(0xff, Opcode::new("SELFDESTRUCT".into()));
 
     opcodes
