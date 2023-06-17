@@ -41,9 +41,8 @@ pub fn parse_bytecode(bytecode_string: &str) -> Result<Vec<Opcode>, String> {
 
     let mut it = bytecode.iter().peekable();
     while let Some(&pos) = it.next() {
-        match opcodes.get(&pos) {
-            Some(op) => {
-                let code = op.clone();
+        match opcodes.get(&pos).cloned() {
+            Some(code) => {
                 if let Some(size) = code.word_size {
                     let mut word = Vec::new();
                     for _ in 0..size {
