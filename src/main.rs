@@ -8,6 +8,36 @@ struct OpcodeInfo {
     opcode_word: Option<Vec<u8>>,
 }
 
+struct Stack<T> {
+    stack: Vec<T>,
+}
+
+impl<T> Stack<T> {
+    fn new() -> Self {
+        Stack { stack: Vec::new() }
+    }
+
+    fn length(&self) -> usize {
+        self.stack.len()
+    }
+
+    fn pop(&mut self) -> Option<T> {
+        self.stack.pop()
+    }
+
+    fn push(&mut self, item: T) {
+        self.stack.push(item)
+    }
+
+    fn is_empty(&self) -> bool {
+        self.stack.is_empty()
+    }
+
+    fn peek(&self) -> Option<&T> {
+        self.stack.last()
+    }
+}
+
 impl fmt::Debug for OpcodeInfo {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
@@ -27,8 +57,16 @@ impl fmt::Debug for OpcodeInfo {
     }
 }
 
+impl<T: fmt::Debug> fmt::Debug for Stack<T> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{:?}", self.stack)
+    }
+}
+
 fn main() {
-    let bytecode = "608060405234801561001057600080fd5b50610150806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80632e64cec11461003b5780636057361d14610059575b600080fd5b610043610075565b60405161005091906100a1565b60405180910390f35b610073600480360381019061006e91906100ed565b61007e565b005b60008054905090565b8060008190555050565b6000819050919050565b61009b81610088565b82525050565b60006020820190506100b66000830184610092565b92915050565b600080fd5b6100ca81610088565b81146100d557600080fd5b50565b6000813590506100e7816100c1565b92915050565b600060208284031215610103576101026100bc565b5b6000610111848285016100d8565b9150509291505056fea2646970667358221220571fb8e17578a3d9f28a3ab652b5f3bd63c1120e573f337d1a87029f2e45cf3264736f6c63430008110033";
+    let bytecode = "602a600b01596018596021596101f4";
+
+    let mut stack = Stack::new();
 
     match op_codes::parse_bytecode(bytecode) {
         Ok(parsed) => {
@@ -37,12 +75,45 @@ fn main() {
             for opcode in parsed {
                 let opcode_info = OpcodeInfo {
                     position: byte_position,
-                    opcode_name: opcode.name,
-                    opcode_word: opcode.word,
+                    opcode_name: opcode.name.clone(),
+                    opcode_word: opcode.word.clone(),
                 };
 
                 println!("{:?}", opcode_info);
 
+                if opcode.name.starts_with("PUSH") {
+                    if let Some(word) = opcode.word {
+                        stack.push(word);
+                    }
+                } else if opcode.name == "JUMP" || opcode.name == "JUMPI" {
+                    stack.pop();
+                    if opcode.name == "JUMPI" {
+                        // JUMPI pops an extra argument (condition)
+                        stack.pop();
+                    }
+                } else if opcode.name == "DUP1" {
+                    if let Some(top) = stack.peek().cloned() {
+                        stack.push(top);
+                    }
+                }
+                // Other opcodes can be handled here...
+
+                println!(
+                    "Stack: [{}]",
+                    stack
+                        .stack
+                        .iter()
+                        .map(|value| format!(
+                            "[{}]",
+                            value
+                                .iter()
+                                .map(|byte| format!("{:02X}", byte))
+                                .collect::<Vec<String>>()
+                                .join("")
+                        ))
+                        .collect::<Vec<String>>()
+                        .join(", ")
+                );
                 byte_position += 1 + opcode_info
                     .opcode_word
                     .as_ref()
