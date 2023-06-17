@@ -1,41 +1,57 @@
 use std::num::ParseIntError;
 
+use self::operations::pass_operation::PassOperation;
+
 mod opcodes_data;
 pub mod operations;
 
-pub trait CodeOperation {
+pub trait CodeOperation: CodeOperationClone {
     fn execute(&self, stack: &mut Vec<Vec<u8>>, word: Option<Vec<u8>>);
 }
 
-pub struct Opcode<T: CodeOperation> {
+// Splitting AnimalClone into its own trait allows us to provide a blanket
+// implementation for all compatible types, without having to implement the
+// rest of Animal.  In this case, we implement it for all types that have
+// 'static lifetime (*i.e.* they don't contain non-'static pointers), and
+// implement both Animal and Clone.  Don't ask me how the compiler resolves
+// implementing AnimalClone for dyn Animal when Animal requires AnimalClone;
+// I have *no* idea why this works.
+pub trait CodeOperationClone {
+    fn clone_box(&self) -> Box<dyn CodeOperation>;
+}
+
+impl<T> CodeOperationClone for T
+where
+    T: 'static + CodeOperation + Clone,
+{
+    fn clone_box(&self) -> Box<dyn CodeOperation> {
+        Box::new(self.clone())
+    }
+}
+
+// We can now implement Clone manually by forwarding to clone_box.
+impl Clone for Box<dyn CodeOperation> {
+    fn clone(&self) -> Box<dyn CodeOperation> {
+        self.clone_box()
+    }
+}
+
+#[derive(Clone)]
+pub struct Opcode {
     pub name: String,
     pub word_size: Option<u8>,
     pub word: Option<Vec<u8>>,
-    pub operation: Option<T>,
+    pub operation: Box<dyn CodeOperation>,
 }
 
-impl<T: CodeOperation> Opcode<T> {
-    fn new(name: String) -> Opcode<T> {
+impl Opcode {
+    fn new(name: String) -> Opcode {
+        let pass = PassOperation {};
         Opcode {
             name,
             word_size: None,
             word: None,
-            operation: None,
-        }
-    }
-
-    fn to_new_opcode(&self) -> Opcode<T> {
-        let word: Option<Vec<u8>> = if self.word.is_some() {
-            Some(self.word.as_ref().unwrap().to_vec())
-        } else {
-            None
-        };
-
-        Opcode {
-            name: String::from(self.name.as_str()),
-            word_size: self.word_size,
-            word,
-            operation: None,
+            operation: Box::new(pass),
         }
     }
 }
@@ -47,17 +63,17 @@ fn decode_hex(s: &str) -> Result<Vec<u8>, ParseIntError> {
         .collect()
 }
 
-pub fn parse_bytecode<T: CodeOperation>(bytecode_string: &str) -> Result<Vec<Opcode<T>>, String> {
+pub fn parse_bytecode(bytecode_string: &str) -> Result<Vec<Opcode>, String> {
     let opcodes = opcodes_data::get_opcodes();
 
     let bytecode =
         decode_hex(bytecode_string).map_err(|e| format!("Failed to decode hex: {}", e))?;
 
-    let mut result: Vec<Opcode<T>> = Vec::new();
+    let mut result: Vec<Opcode> = Vec::new();
 
     let mut it = bytecode.iter().peekable();
     while let Some(&pos) = it.next() {
-        if let Some(code) = Some(opcodes.get(&pos).unwrap().to_new_opcode()) {
+        if let Some(code) = Some(opcodes.get(&pos).unwrap().clone()) {
             if let Some(size) = code.word_size {
                 let mut word = Vec::new();
                 for _ in 0..size {
@@ -75,7 +91,7 @@ pub fn parse_bytecode<T: CodeOperation>(bytecode_string: &str) -> Result<Vec<Opc
                     name: code.name,
                     word_size: code.word_size,
                     word: Some(word),
-                    operation: None,
+                    operation: code.operation,
                 });
             } else {
                 result.push(code);

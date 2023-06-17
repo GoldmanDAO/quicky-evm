@@ -1,5 +1,6 @@
 use super::super::CodeOperation;
 
+#[derive(Clone)]
 pub struct AddOperation {}
 impl CodeOperation for AddOperation {
     fn execute(&self, stack: &mut Vec<Vec<u8>>, _word: Option<Vec<u8>>) {

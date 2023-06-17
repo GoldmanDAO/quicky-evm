@@ -1,9 +1,11 @@
+use crate::op_codes::operations::push_operation::PushOperation;
+
 // use super::operations::PushOperation;
-use super::{CodeOperation, Opcode};
+use super::Opcode;
 use std::collections::HashMap;
 
-pub fn get_opcodes<T: CodeOperation>() -> HashMap<u8, Opcode<T>> {
-    let mut opcodes: HashMap<u8, Opcode<T>> = HashMap::new();
+pub fn get_opcodes() -> HashMap<u8, Opcode> {
+    let mut opcodes: HashMap<u8, Opcode> = HashMap::new();
 
     opcodes.insert(0x00, Opcode::new("STOP".into()));
     opcodes.insert(0x01, Opcode::new("ADD".into()));
@@ -73,13 +75,14 @@ pub fn get_opcodes<T: CodeOperation>() -> HashMap<u8, Opcode<T>> {
 
     // Push operations ...
     for n in 0..33 {
+        let push_operation = PushOperation {};
         opcodes.insert(
             0x5F + n,
             Opcode {
                 name: format!("PUSH{}", n).into(),
                 word_size: Some(n),
                 word: None,
-                operation: None,
+                operation: Box::new(push_operation),
             },
         );
     }
