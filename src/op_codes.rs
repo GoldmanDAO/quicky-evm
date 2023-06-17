@@ -1,40 +1,8 @@
+use self::operations::{pass_operation::PassOperation, CodeOperation};
 use std::num::ParseIntError;
-
-use self::operations::pass_operation::PassOperation;
 
 mod opcodes_data;
 pub mod operations;
-
-pub trait CodeOperation: CodeOperationClone {
-    fn execute(&self, stack: &mut Vec<Vec<u8>>, word: Option<Vec<u8>>);
-}
-
-// Splitting AnimalClone into its own trait allows us to provide a blanket
-// implementation for all compatible types, without having to implement the
-// rest of Animal.  In this case, we implement it for all types that have
-// 'static lifetime (*i.e.* they don't contain non-'static pointers), and
-// implement both Animal and Clone.  Don't ask me how the compiler resolves
-// implementing AnimalClone for dyn Animal when Animal requires AnimalClone;
-// I have *no* idea why this works.
-pub trait CodeOperationClone {
-    fn clone_box(&self) -> Box<dyn CodeOperation>;
-}
-
-impl<T> CodeOperationClone for T
-where
-    T: 'static + CodeOperation + Clone,
-{
-    fn clone_box(&self) -> Box<dyn CodeOperation> {
-        Box::new(self.clone())
-    }
-}
-
-// We can now implement Clone manually by forwarding to clone_box.
-impl Clone for Box<dyn CodeOperation> {
-    fn clone(&self) -> Box<dyn CodeOperation> {
-        self.clone_box()
-    }
-}
 
 #[derive(Clone)]
 pub struct Opcode {
