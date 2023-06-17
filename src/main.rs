@@ -62,23 +62,7 @@ fn main() {
                 };
 
                 println!("{:?}", opcode_info);
-
-                if opcode.name.starts_with("PUSH") {
-                    if let Some(word) = opcode.word {
-                        stack.push(word);
-                    }
-                } else if opcode.name == "JUMP" || opcode.name == "JUMPI" {
-                    stack.pop();
-                    if opcode.name == "JUMPI" {
-                        // JUMPI pops an extra argument (condition)
-                        stack.pop();
-                    }
-                } else if opcode.name == "DUP1" {
-                    if let Some(top) = stack.last().cloned() {
-                        stack.push(top);
-                    }
-                }
-                // Other opcodes can be handled here...
+                opcode.operation.execute(&mut stack, opcode.word);
 
                 println!("Stack: {}", stack_to_string(&stack));
 
