@@ -41,31 +41,35 @@ pub fn parse_bytecode(bytecode_string: &str) -> Result<Vec<Opcode>, String> {
 
     let mut it = bytecode.iter().peekable();
     while let Some(&pos) = it.next() {
-        if let Some(code) = Some(opcodes.get(&pos).unwrap().clone()) {
-            if let Some(size) = code.word_size {
-                let mut word = Vec::new();
-                for _ in 0..size {
-                    if let Some(&byte) = it.next() {
-                        word.push(byte);
-                    } else {
-                        return Err(format!(
+        match opcodes.get(&pos) {
+            Some(op) => {
+                let code = op.clone();
+                if let Some(size) = code.word_size {
+                    let mut word = Vec::new();
+                    for _ in 0..size {
+                        if let Some(&byte) = it.next() {
+                            word.push(byte);
+                        } else {
+                            return Err(format!(
                             "Unexpected end of bytecode. Opcode 0x{:02x} requires {} more byte(s).",
                             pos, size
                         ));
+                        }
                     }
-                }
 
-                result.push(Opcode {
-                    name: code.name,
-                    word_size: code.word_size,
-                    word: Some(word),
-                    operation: code.operation,
-                });
-            } else {
-                result.push(code);
+                    result.push(Opcode {
+                        name: code.name,
+                        word_size: code.word_size,
+                        word: Some(word),
+                        operation: code.operation,
+                    });
+                } else {
+                    result.push(code);
+                }
             }
-        } else {
-            return Err(format!("Unknown opcode: 0x{:02x}", pos));
+            None => {
+                return Err(format!("Unknown opcode: 0x{:02x}", pos));
+            }
         }
     }
 
