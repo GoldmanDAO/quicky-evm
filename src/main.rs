@@ -57,10 +57,22 @@ impl fmt::Debug for OpcodeInfo {
     }
 }
 
-impl<T: fmt::Debug> fmt::Debug for Stack<T> {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{:?}", self.stack)
-    }
+fn stack_to_string(stack: &Stack<Vec<u8>>) -> String {
+    stack
+        .stack
+        .iter()
+        .map(|value| {
+            format!(
+                "[{}]",
+                value
+                    .iter()
+                    .map(|byte| format!("{:02X}", byte))
+                    .collect::<Vec<String>>()
+                    .join("")
+            )
+        })
+        .collect::<Vec<String>>()
+        .join(", ")
 }
 
 fn main() {
@@ -98,22 +110,8 @@ fn main() {
                 }
                 // Other opcodes can be handled here...
 
-                println!(
-                    "Stack: [{}]",
-                    stack
-                        .stack
-                        .iter()
-                        .map(|value| format!(
-                            "[{}]",
-                            value
-                                .iter()
-                                .map(|byte| format!("{:02X}", byte))
-                                .collect::<Vec<String>>()
-                                .join("")
-                        ))
-                        .collect::<Vec<String>>()
-                        .join(", ")
-                );
+                println!("Stack: {}", stack_to_string(&stack));
+
                 byte_position += 1 + opcode_info
                     .opcode_word
                     .as_ref()
