@@ -8,36 +8,6 @@ struct OpcodeInfo {
     opcode_word: Option<Vec<u8>>,
 }
 
-struct Stack<T> {
-    stack: Vec<T>,
-}
-
-impl<T> Stack<T> {
-    fn new() -> Self {
-        Stack { stack: Vec::new() }
-    }
-
-    fn length(&self) -> usize {
-        self.stack.len()
-    }
-
-    fn pop(&mut self) -> Option<T> {
-        self.stack.pop()
-    }
-
-    fn push(&mut self, item: T) {
-        self.stack.push(item)
-    }
-
-    fn is_empty(&self) -> bool {
-        self.stack.is_empty()
-    }
-
-    fn peek(&self) -> Option<&T> {
-        self.stack.last()
-    }
-}
-
 impl fmt::Debug for OpcodeInfo {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
@@ -57,28 +27,11 @@ impl fmt::Debug for OpcodeInfo {
     }
 }
 
-fn stack_to_string(stack: &Stack<Vec<u8>>) -> String {
-    stack
-        .stack
-        .iter()
-        .map(|value| {
-            format!(
-                "[{}]",
-                value
-                    .iter()
-                    .map(|byte| format!("{:02X}", byte))
-                    .collect::<Vec<String>>()
-                    .join("")
-            )
-        })
-        .collect::<Vec<String>>()
-        .join(", ")
-}
-
 fn main() {
     let bytecode = "602a600b01596018596021596101f4";
 
-    let mut stack = Stack::new();
+    // let mut stack = Stack::new();
+    let mut stack: Vec<Vec<u8>> = Vec::new();
 
     match op_codes::parse_bytecode(bytecode) {
         Ok(parsed) => {
@@ -104,13 +57,13 @@ fn main() {
                         stack.pop();
                     }
                 } else if opcode.name == "DUP1" {
-                    if let Some(top) = stack.peek().cloned() {
+                    if let Some(top) = stack.last().cloned() {
                         stack.push(top);
                     }
                 }
                 // Other opcodes can be handled here...
 
-                println!("Stack: {}", stack_to_string(&stack));
+                println!("Stack: {:?}", stack);
 
                 byte_position += 1 + opcode_info
                     .opcode_word
