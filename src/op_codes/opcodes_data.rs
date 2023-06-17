@@ -1,8 +1,8 @@
-use super::Opcode;
+use super::{CodeOperation, Opcode};
 use std::collections::HashMap;
 
-pub fn get_opcodes() -> HashMap<u8, Opcode> {
-    let mut opcodes: HashMap<u8, Opcode> = HashMap::new();
+pub fn get_opcodes<T: CodeOperation>() -> HashMap<u8, Opcode<T>> {
+    let mut opcodes: HashMap<u8, Opcode<T>> = HashMap::new();
 
     opcodes.insert(0x00, Opcode::new("STOP".into()));
     opcodes.insert(0x01, Opcode::new("ADD".into()));
@@ -78,6 +78,7 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
                 name: format!("PUSH{}", n).into(),
                 word_size: Some(n),
                 word: None,
+                operation: None,
             },
         );
     }

@@ -1,31 +1,60 @@
-use std::fmt;
 use std::num::ParseIntError;
 
 mod opcodes_data;
 
-#[derive(Clone, Default)]
-pub struct Opcode {
+pub trait CodeOperation {
+    fn execute(&self, stack: &mut Vec<Vec<u8>>, word: Option<Vec<u8>>);
+}
+
+pub struct PushOperation {}
+impl CodeOperation for PushOperation {
+    fn execute(&self, stack: &mut Vec<Vec<u8>>, word: Option<Vec<u8>>) {
+        stack.push(word.unwrap());
+    }
+}
+
+pub struct AddOperation {}
+impl CodeOperation for AddOperation {
+    fn execute(&self, stack: &mut Vec<Vec<u8>>, _word: Option<Vec<u8>>) {
+        let a = stack.pop().unwrap();
+        // let b = stack.pop().unwrap();
+
+        // TODO: Fix this implementation
+        // stack.push(a + b);
+        stack.push(a)
+    }
+}
+
+pub struct Opcode<T: CodeOperation> {
     pub name: String,
     pub word_size: Option<u8>,
     pub word: Option<Vec<u8>>,
+    pub operation: Option<T>,
 }
 
-impl Opcode {
-    fn new(name: String) -> Opcode {
+impl<T: CodeOperation> Opcode<T> {
+    fn new(name: String) -> Opcode<T> {
         Opcode {
             name,
             word_size: None,
             word: None,
+            operation: None,
         }
     }
-}
 
-impl fmt::Debug for Opcode {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        f.debug_struct("Opcode")
-            .field("name: ", &self.name)
-            .field("value", &self.word)
-            .finish()
+    fn to_new_opcode(&self) -> Opcode<T> {
+        let word: Option<Vec<u8>> = if self.word.is_some() {
+            Some(self.word.as_ref().unwrap().to_vec())
+        } else {
+            None
+        };
+
+        Opcode {
+            name: String::from(self.name.as_str()),
+            word_size: self.word_size,
+            word,
+            operation: None,
+        }
     }
 }
 
@@ -36,17 +65,17 @@ fn decode_hex(s: &str) -> Result<Vec<u8>, ParseIntError> {
         .collect()
 }
 
-pub fn parse_bytecode(bytecode_string: &str) -> Result<Vec<Opcode>, String> {
+pub fn parse_bytecode<T: CodeOperation>(bytecode_string: &str) -> Result<Vec<Opcode<T>>, String> {
     let opcodes = opcodes_data::get_opcodes();
 
     let bytecode =
         decode_hex(bytecode_string).map_err(|e| format!("Failed to decode hex: {}", e))?;
 
-    let mut result: Vec<Opcode> = Vec::new();
+    let mut result: Vec<Opcode<T>> = Vec::new();
 
     let mut it = bytecode.iter().peekable();
     while let Some(&pos) = it.next() {
-        if let Some(code) = opcodes.get(&pos).cloned() {
+        if let Some(code) = Some(opcodes.get(&pos).unwrap().to_new_opcode()) {
             if let Some(size) = code.word_size {
                 let mut word = Vec::new();
                 for _ in 0..size {
@@ -64,6 +93,7 @@ pub fn parse_bytecode(bytecode_string: &str) -> Result<Vec<Opcode>, String> {
                     name: code.name,
                     word_size: code.word_size,
                     word: Some(word),
+                    operation: None,
                 });
             } else {
                 result.push(code);

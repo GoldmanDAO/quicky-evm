@@ -8,6 +8,23 @@ struct OpcodeInfo {
     opcode_word: Option<Vec<u8>>,
 }
 
+fn stack_to_string(stack: &Vec<Vec<u8>>) -> String {
+    stack
+        .iter()
+        .map(|value| {
+            format!(
+                "[{}]",
+                value
+                    .iter()
+                    .map(|byte| format!("{:02X}", byte))
+                    .collect::<Vec<String>>()
+                    .join("")
+            )
+        })
+        .collect::<Vec<String>>()
+        .join(", ")
+}
+
 impl fmt::Debug for OpcodeInfo {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
@@ -33,7 +50,7 @@ fn main() {
     // let mut stack = Stack::new();
     let mut stack: Vec<Vec<u8>> = Vec::new();
 
-    match op_codes::parse_bytecode(bytecode) {
+    match op_codes::parse_bytecode::<op_codes::PushOperation>(bytecode) {
         Ok(parsed) => {
             let mut byte_position = 0;
 
@@ -63,7 +80,7 @@ fn main() {
                 }
                 // Other opcodes can be handled here...
 
-                println!("Stack: {:?}", stack);
+                println!("Stack: {}", stack_to_string(&stack));
 
                 byte_position += 1 + opcode_info
                     .opcode_word
