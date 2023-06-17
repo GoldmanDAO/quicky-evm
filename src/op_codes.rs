@@ -22,6 +22,15 @@ impl Opcode {
             operation: Box::new(pass),
         }
     }
+
+    fn new_with_operation(name: String, operation: Box<dyn CodeOperation>) -> Opcode {
+        Opcode {
+            name,
+            word_size: None,
+            word: None,
+            operation,
+        }
+    }
 }
 
 fn decode_hex(s: &str) -> Result<Vec<u8>, ParseIntError> {

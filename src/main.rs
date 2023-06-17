@@ -45,7 +45,7 @@ impl fmt::Debug for OpcodeInfo {
 }
 
 fn main() {
-    let bytecode = "602a600b01596018596021596101f4";
+    let bytecode = "600160020102596018596021596101f4";
 
     // let mut stack = Stack::new();
     let mut stack: Vec<Vec<u8>> = Vec::new();
@@ -62,8 +62,8 @@ fn main() {
                 };
 
                 println!("{:?}", opcode_info);
-                opcode.operation.execute(&mut stack, opcode.word);
 
+                opcode.operation.execute(&mut stack, opcode.word);
                 println!("Stack: {}", stack_to_string(&stack));
 
                 byte_position += 1 + opcode_info
