@@ -1,4 +1,4 @@
-use self::operations::{pass_operation::PassOperation, CodeOperation};
+use self::{operations::{pass_operation::PassOperation, CodeOperation}, opcodes_data::get_opcodes};
 use std::num::ParseIntError;
 
 mod opcodes_data;
@@ -32,7 +32,7 @@ fn decode_hex(s: &str) -> Result<Vec<u8>, ParseIntError> {
 }
 
 pub fn parse_bytecode(bytecode_string: &str) -> Result<Vec<Opcode>, String> {
-    let opcodes = opcodes_data::get_opcodes();
+    let opcodes = get_opcodes();
 
     let bytecode =
         decode_hex(bytecode_string).map_err(|e| format!("Failed to decode hex: {}", e))?;
@@ -43,32 +43,29 @@ pub fn parse_bytecode(bytecode_string: &str) -> Result<Vec<Opcode>, String> {
     while let Some(&pos) = it.next() {
         match opcodes.get(&pos).cloned() {
             Some(code) => {
-                if let Some(size) = code.word_size {
-                    let mut word = Vec::new();
-                    for _ in 0..size {
-                        if let Some(&byte) = it.next() {
-                            word.push(byte);
-                        } else {
-                            return Err(format!(
-                            "Unexpected end of bytecode. Opcode 0x{:02x} requires {} more byte(s).",
-                            pos, size
-                        ));
+                match code.word_size {
+                    Some(size) => {
+                        let mut word = Vec::new();
+                        for _ in 0..size {
+                            match it.next() {
+                                Some(&byte) => word.push(byte),
+                                None => 
+                                    return Err(format!("Unexpected end of bytecode. Opcode 0x{:02x} requires {} more byte(s).", pos, size)),
+                            }
                         }
-                    }
 
-                    result.push(Opcode {
-                        name: code.name,
-                        word_size: code.word_size,
-                        word: Some(word),
-                        operation: code.operation,
-                    });
-                } else {
-                    result.push(code);
+                        result.push(Opcode {
+                            name: code.name,
+                            word_size: code.word_size,
+                            word: Some(word),
+                            operation: code.operation,
+                        });
+                    }
+                    None => result.push(code)
                 }
             }
-            None => {
-                return Err(format!("Unknown opcode: 0x{:02x}", pos));
-            }
+
+            None => return Err(format!("Unknown opcode: 0x{:02x}", pos)),
         }
     }
 
