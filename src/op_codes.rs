@@ -1,28 +1,10 @@
 use std::num::ParseIntError;
 
 mod opcodes_data;
+pub mod operations;
 
 pub trait CodeOperation {
     fn execute(&self, stack: &mut Vec<Vec<u8>>, word: Option<Vec<u8>>);
-}
-
-pub struct PushOperation {}
-impl CodeOperation for PushOperation {
-    fn execute(&self, stack: &mut Vec<Vec<u8>>, word: Option<Vec<u8>>) {
-        stack.push(word.unwrap());
-    }
-}
-
-pub struct AddOperation {}
-impl CodeOperation for AddOperation {
-    fn execute(&self, stack: &mut Vec<Vec<u8>>, _word: Option<Vec<u8>>) {
-        let a = stack.pop().unwrap();
-        // let b = stack.pop().unwrap();
-
-        // TODO: Fix this implementation
-        // stack.push(a + b);
-        stack.push(a)
-    }
 }
 
 pub struct Opcode<T: CodeOperation> {

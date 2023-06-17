@@ -50,7 +50,9 @@ fn main() {
     // let mut stack = Stack::new();
     let mut stack: Vec<Vec<u8>> = Vec::new();
 
-    match op_codes::parse_bytecode::<op_codes::PushOperation>(bytecode) {
+    match op_codes::parse_bytecode::<crate::op_codes::operations::push_operation::PushOperation>(
+        bytecode,
+    ) {
         Ok(parsed) => {
             let mut byte_position = 0;
 
