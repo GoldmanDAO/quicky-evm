@@ -1,7 +1,4 @@
-use crate::op_codes::operations::{
-    add_operation::{self, AddOperation},
-    push_operation::PushOperation,
-};
+use crate::op_codes::operations::{add_operation::AddOperation, push_operation::PushOperation};
 
 // use super::operations::PushOperation;
 use super::Opcode;
@@ -9,12 +6,11 @@ use std::collections::HashMap;
 
 pub fn get_opcodes() -> HashMap<u8, Opcode> {
     let mut opcodes: HashMap<u8, Opcode> = HashMap::new();
-    let add = AddOperation {};
 
     opcodes.insert(0x00, Opcode::new("STOP".into()));
     opcodes.insert(
         0x01,
-        Opcode::new_with_operation("ADD".into(), Box::new(add)),
+        Opcode::new_with_operation("ADD".into(), Box::new(AddOperation {})),
     );
     opcodes.insert(0x02, Opcode::new("MUL".into()));
     opcodes.insert(0x03, Opcode::new("SUB".into()));
