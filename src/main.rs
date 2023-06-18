@@ -1,7 +1,7 @@
 use virtual_machine::ExecutionRuntime;
 
-mod op_codes;
-mod virtual_machine;
+pub mod op_codes;
+pub mod virtual_machine;
 
 fn main() {
     let bytecode = "6002600203";
