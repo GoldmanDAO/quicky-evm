@@ -39,7 +39,7 @@ impl ExecutionRuntime {
         while self.runtime_position < self.opcodes.len() {
             let opcode = &self.opcodes[self.runtime_position];
 
-            println!("{:02X} {:?}", self.runtime_position, opcode);
+            println!("{:02X} {:?}", self.byte_position, opcode);
 
             opcode
                 .operation
