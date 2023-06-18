@@ -1,3 +1,4 @@
+use std::fmt;
 use self::{operations::{pass_operation::PassOperation, CodeOperation}, opcodes_data::get_opcodes};
 use std::num::ParseIntError;
 
@@ -30,6 +31,24 @@ impl Opcode {
             word: None,
             operation,
         }
+    }
+}
+
+impl fmt::Debug for Opcode {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "{:<8}\t[{}]",
+            self.name,
+            self.word
+                .as_ref()
+                .map(|word| word
+                    .iter()
+                    .map(|byte| format!("{:02X}", byte))
+                    .collect::<Vec<String>>()
+                    .join(""))
+                .unwrap_or_else(|| String::from(""))
+        )
     }
 }
 
