@@ -37,13 +37,14 @@ impl ExecutionRuntime {
         self.parse_bytecode();
 
         while self.runtime_position < self.opcodes.len() {
-            let opcode = &self.opcodes[self.runtime_position];
+            let opcode = &self.opcodes[self.runtime_position].clone();
 
-            println!("{:02X} {:?}", self.byte_position, opcode);
+            println!(
+                "{:02X} {:?}",
+                self.byte_position, self.opcodes[self.runtime_position]
+            );
 
-            opcode
-                .operation
-                .execute(&mut self.stack, opcode.word.clone());
+            opcode.operation.execute(self, opcode.word.clone());
             println!("Stack: {}", self.stack_to_string());
 
             self.byte_position += 1 + opcode.word.as_ref().map_or(0, |word| word.len());

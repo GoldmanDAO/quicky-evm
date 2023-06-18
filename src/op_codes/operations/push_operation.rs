@@ -1,10 +1,12 @@
+use crate::virtual_machine::ExecutionRuntime;
+
 use super::super::CodeOperation;
 
 #[derive(Clone)]
 pub struct PushOperation {}
 impl CodeOperation for PushOperation {
-    fn execute(&self, stack: &mut Vec<Vec<u8>>, word: Option<Vec<u8>>) {
-        stack.push(word.unwrap());
+    fn execute(&self, vm: &mut ExecutionRuntime, word: Option<Vec<u8>>) {
+        vm.stack.push(word.unwrap());
     }
 }
 
@@ -15,11 +17,18 @@ mod test {
     #[test]
     fn test_push() {
         let add = PushOperation {};
-        let mut stack: Vec<Vec<u8>> = vec![];
-        add.execute(&mut stack, Some(vec![0xB]));
-        add.execute(&mut stack, Some(vec![0x0]));
-        add.execute(&mut stack, Some(vec![0x0]));
-        add.execute(&mut stack, Some(vec![0xB]));
-        assert_eq!(stack, vec![vec![0xB], vec![0x0], vec![0x0], vec![0xB]]);
+        let stack: Vec<Vec<u8>> = vec![];
+        let mut vm = ExecutionRuntime {
+            stack,
+            bytecode: String::new(),
+            opcodes: Vec::new(),
+            runtime_position: 0,
+            byte_position: 0,
+        };
+        add.execute(&mut vm, Some(vec![0xB]));
+        add.execute(&mut vm, Some(vec![0x0]));
+        add.execute(&mut vm, Some(vec![0x0]));
+        add.execute(&mut vm, Some(vec![0xB]));
+        assert_eq!(vm.stack, vec![vec![0xB], vec![0x0], vec![0x0], vec![0xB]]);
     }
 }
