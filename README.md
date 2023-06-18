@@ -1,4 +1,4 @@
-# 🧙 Ethereum Bytecode Decoder 🔮
+# 🧙 Quicky EVM 🔮
 
 This tool 🛠️ is written in Rust and decodes Ethereum bytecode into human-readable opcodes and their operands. Ever felt like an ancient wizard trying to decipher an old scroll 📜? Worry not, this decoder is your magical monocle 🧐!
 
