@@ -6,6 +6,8 @@ This tool 🛠️ is written in Rust and decodes Ethereum bytecode into human-re
 
 - **Decodes**: Converts Ethereum bytecode (the enigmatic hex string 🧩) into a list of opcodes (instructions) and operands (data).
 
+- **Stack**: It also keeps track of the stack state after each opcode (👷‍♂️ in progress)
+
 - **More to come...**
 
 ## 🧡 Contributing
