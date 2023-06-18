@@ -39,10 +39,7 @@ impl ExecutionRuntime {
         while self.runtime_position < self.opcodes.len() {
             let opcode = &self.opcodes[self.runtime_position].clone();
 
-            println!(
-                "{:02X} {:?}",
-                self.byte_position, self.opcodes[self.runtime_position]
-            );
+            println!("{:02X} {:?}", self.byte_position, opcode);
 
             opcode.operation.execute(self, opcode.word.clone());
             println!("Stack: {}", self.stack_to_string());

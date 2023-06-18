@@ -4,6 +4,7 @@ pub mod add_operation;
 pub mod mul_operation;
 pub mod pass_operation;
 pub mod push_operation;
+pub mod stop_operation;
 pub mod sub_operation;
 
 pub trait CodeOperation: CodeOperationClone {
