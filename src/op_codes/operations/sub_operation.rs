@@ -23,3 +23,16 @@ impl CodeOperation for SubOperation {
         }
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_mul() {
+        let add = SubOperation {};
+        let mut stack: Vec<Vec<u8>> = vec![vec![0x2], vec![0x2]];
+        add.execute(&mut stack, None);
+        assert_eq!(stack, vec![vec![0x0]]);
+    }
+}

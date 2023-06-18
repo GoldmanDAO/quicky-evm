@@ -16,3 +16,16 @@ impl CodeOperation for AddOperation {
         stack.push(result.to_be_bytes());
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_add() {
+        let add = AddOperation {};
+        let mut stack: Vec<Vec<u8>> = vec![vec![0x1], vec![0x2]];
+        add.execute(&mut stack, None);
+        assert_eq!(stack, vec![vec![0x3]]);
+    }
+}

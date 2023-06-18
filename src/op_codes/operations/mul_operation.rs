@@ -16,3 +16,16 @@ impl CodeOperation for MulOperation {
         stack.push(result.to_be_bytes());
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_mul() {
+        let add = MulOperation {};
+        let mut stack: Vec<Vec<u8>> = vec![vec![0x2], vec![0x2]];
+        add.execute(&mut stack, None);
+        assert_eq!(stack, vec![vec![0x4]]);
+    }
+}
