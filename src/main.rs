@@ -4,7 +4,7 @@ mod op_codes;
 mod virtual_machine;
 
 fn main() {
-    let bytecode = "600160020102596018596021596101f4";
+    let bytecode = "6002600203";
 
     let mut runtime = ExecutionRuntime {
         stack: Vec::new(),

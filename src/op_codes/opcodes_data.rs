@@ -1,4 +1,7 @@
-use crate::op_codes::operations::{add_operation::AddOperation, push_operation::PushOperation};
+use crate::op_codes::operations::{
+    add_operation::AddOperation, mul_operation::MulOperation, push_operation::PushOperation,
+    sub_operation::SubOperation,
+};
 
 // use super::operations::PushOperation;
 use super::Opcode;
@@ -12,8 +15,14 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         0x01,
         Opcode::new_with_operation("ADD".into(), Box::new(AddOperation {})),
     );
-    opcodes.insert(0x02, Opcode::new("MUL".into()));
-    opcodes.insert(0x03, Opcode::new("SUB".into()));
+    opcodes.insert(
+        0x02,
+        Opcode::new_with_operation("MUL".into(), Box::new(MulOperation {})),
+    );
+    opcodes.insert(
+        0x03,
+        Opcode::new_with_operation("SUB".into(), Box::new(SubOperation {})),
+    );
     opcodes.insert(0x04, Opcode::new("DIV".into()));
     opcodes.insert(0x05, Opcode::new("SDIV".into()));
     opcodes.insert(0x06, Opcode::new("MOD".into()));

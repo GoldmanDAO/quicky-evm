@@ -1,6 +1,8 @@
 pub mod add_operation;
+pub mod mul_operation;
 pub mod pass_operation;
 pub mod push_operation;
+pub mod sub_operation;
 
 pub trait CodeOperation: CodeOperationClone {
     fn execute(&self, stack: &mut Vec<Vec<u8>>, word: Option<Vec<u8>>);
