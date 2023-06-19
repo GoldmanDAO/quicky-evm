@@ -34,13 +34,7 @@ mod test {
     fn test_sub() {
         let add = SubOperation {};
         let stack: Vec<Vec<u8>> = vec![vec![0x2], vec![0x2]];
-        let mut vm = ExecutionRuntime {
-            stack,
-            bytecode: String::new(),
-            opcodes: Vec::new(),
-            runtime_position: 0,
-            byte_position: 0,
-        };
+        let mut vm = ExecutionRuntime::new_with_stack(stack);
         add.execute(&mut vm, None);
         assert_eq!(vm.stack, vec![vec![0x0]]);
     }

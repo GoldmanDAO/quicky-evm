@@ -1,14 +1,31 @@
 use super::op_codes::parse_bytecode;
 
+pub struct ChainSettings {
+    pub chain_id: u8,
+}
+
 pub struct ExecutionRuntime {
     pub stack: Vec<Vec<u8>>,
     pub bytecode: String,
     pub opcodes: Vec<super::op_codes::Opcode>,
     pub runtime_position: usize,
     pub byte_position: usize,
+    pub chain_settings: ChainSettings,
 }
 
 impl ExecutionRuntime {
+    pub fn new_with_stack(stack: Vec<Vec<u8>>) -> ExecutionRuntime {
+        let chain_settings = ChainSettings { chain_id: 1 };
+        ExecutionRuntime {
+            stack,
+            bytecode: String::new(),
+            opcodes: Vec::new(),
+            runtime_position: 0,
+            byte_position: 0,
+            chain_settings,
+        }
+    }
+
     fn parse_bytecode(&mut self) {
         match parse_bytecode(self.bytecode.as_str()) {
             Ok(parsed) => self.opcodes = parsed,

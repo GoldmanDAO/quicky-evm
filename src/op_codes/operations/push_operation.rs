@@ -18,13 +18,7 @@ mod test {
     fn test_push() {
         let add = PushOperation {};
         let stack: Vec<Vec<u8>> = vec![];
-        let mut vm = ExecutionRuntime {
-            stack,
-            bytecode: String::new(),
-            opcodes: Vec::new(),
-            runtime_position: 0,
-            byte_position: 0,
-        };
+        let mut vm = ExecutionRuntime::new_with_stack(stack);
         add.execute(&mut vm, Some(vec![0xB]));
         add.execute(&mut vm, Some(vec![0x0]));
         add.execute(&mut vm, Some(vec![0x0]));

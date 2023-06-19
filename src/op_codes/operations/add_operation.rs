@@ -28,13 +28,7 @@ mod test {
         let add = AddOperation {};
 
         let stack: Vec<Vec<u8>> = vec![vec![0x1], vec![0x2]];
-        let mut vm = ExecutionRuntime {
-            stack,
-            bytecode: String::new(),
-            opcodes: Vec::new(),
-            runtime_position: 0,
-            byte_position: 0,
-        };
+        let mut vm = ExecutionRuntime::new_with_stack(stack);
         add.execute(&mut vm, None);
         assert_eq!(vm.stack, vec![vec![0x3]]);
     }

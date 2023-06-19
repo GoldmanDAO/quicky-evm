@@ -1,15 +1,17 @@
-use quicky_evm::virtual_machine::ExecutionRuntime;
+use quicky_evm::virtual_machine::{ChainSettings, ExecutionRuntime};
 
 #[test]
 fn parses_correctly_simple_bytecode() {
     let bytecode = "6001600201";
 
+    let chain_settings = ChainSettings { chain_id: 1 };
     let mut runtime = ExecutionRuntime {
         stack: Vec::new(),
         bytecode: bytecode.to_string(),
         opcodes: Vec::new(),
         runtime_position: 0,
         byte_position: 0,
+        chain_settings,
     };
 
     runtime.run();
@@ -25,12 +27,14 @@ fn parses_correctly_simple_bytecode() {
 fn stops_running_with_stop() {
     let bytecode = "6001006002";
 
+    let chain_settings = ChainSettings { chain_id: 1 };
     let mut runtime = ExecutionRuntime {
         stack: Vec::new(),
         bytecode: bytecode.to_string(),
         opcodes: Vec::new(),
         runtime_position: 0,
         byte_position: 0,
+        chain_settings,
     };
 
     runtime.run();

@@ -1,6 +1,7 @@
 use crate::op_codes::operations::{
-    add_operation::AddOperation, lt_operation::LTOperation, mul_operation::MulOperation,
-    push_operation::PushOperation, stop_operation::StopOperation, sub_operation::SubOperation,
+    add_operation::AddOperation, chainid_operation::ChainIdOperation, lt_operation::LTOperation,
+    mul_operation::MulOperation, push_operation::PushOperation, stop_operation::StopOperation,
+    sub_operation::SubOperation,
 };
 
 // use super::operations::PushOperation;
@@ -74,7 +75,10 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
     opcodes.insert(0x43, Opcode::new("NUMBER".into()));
     opcodes.insert(0x44, Opcode::new("DIFFICULTY".into()));
     opcodes.insert(0x45, Opcode::new("GASLIMIT".into()));
-    opcodes.insert(0x46, Opcode::new("CHAINID".into()));
+    opcodes.insert(
+        0x46,
+        Opcode::new_with_operation("CHAINID".into(), Box::new(ChainIdOperation {})),
+    );
     opcodes.insert(0x47, Opcode::new("SELFBALANCE".into()));
     opcodes.insert(0x48, Opcode::new("BASEFEE".into()));
     // Log and memory operations ...
