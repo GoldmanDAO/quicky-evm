@@ -1,7 +1,8 @@
 use crate::op_codes::operations::{
     add_operation::AddOperation, chainid_operation::ChainIdOperation, div_operation::DivOperation,
-    lt_operation::LTOperation, mul_operation::MulOperation, push_operation::PushOperation,
-    stop_operation::StopOperation, sub_operation::SubOperation,
+    eq_operation::EQOperation, gt_operation::GTOperation, iszero_operation::IsZeroOperation,
+    lt_operation::LTOperation, mul_operation::MulOperation, pop_operation::PopOperation,
+    push_operation::PushOperation, stop_operation::StopOperation, sub_operation::SubOperation,
 };
 
 // use super::operations::PushOperation;
@@ -42,11 +43,20 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         0x10,
         Opcode::new_with_operation("LT".into(), Box::new(LTOperation {})),
     );
-    opcodes.insert(0x11, Opcode::new("GT".into()));
+    opcodes.insert(
+        0x11,
+        Opcode::new_with_operation("GT".into(), Box::new(GTOperation {})),
+    );
     opcodes.insert(0x12, Opcode::new("SLT".into()));
     opcodes.insert(0x13, Opcode::new("SGT".into()));
-    opcodes.insert(0x14, Opcode::new("EQ".into()));
-    opcodes.insert(0x15, Opcode::new("ISZERO".into()));
+    opcodes.insert(
+        0x14,
+        Opcode::new_with_operation("EQ".into(), Box::new(EQOperation {})),
+    );
+    opcodes.insert(
+        0x15,
+        Opcode::new_with_operation("ISZERO".into(), Box::new(IsZeroOperation {})),
+    );
     opcodes.insert(0x16, Opcode::new("AND".into()));
     opcodes.insert(0x17, Opcode::new("OR".into()));
     opcodes.insert(0x18, Opcode::new("XOR".into()));
@@ -85,7 +95,10 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
     opcodes.insert(0x47, Opcode::new("SELFBALANCE".into()));
     opcodes.insert(0x48, Opcode::new("BASEFEE".into()));
     // Log and memory operations ...
-    opcodes.insert(0x50, Opcode::new("POP".into()));
+    opcodes.insert(
+        0x50,
+        Opcode::new_with_operation("POP".into(), Box::new(PopOperation {})),
+    );
     opcodes.insert(0x51, Opcode::new("MLOAD".into()));
     opcodes.insert(0x52, Opcode::new("MSTORE".into()));
     opcodes.insert(0x53, Opcode::new("MSTORE8".into()));
