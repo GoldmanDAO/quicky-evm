@@ -14,7 +14,7 @@ impl CodeOperation for DivOperation {
         let dividend = UBig::from_str_radix(&hex_str_dividend, 16).unwrap();
 
         if divisor == u8::MIN.into() || dividend == u8::MIN.into() || divisor > dividend {
-            vm.stack.push(0_u8.to_be_bytes().to_vec());
+            vm.stack.push(vec![0x0]);
         } else {
             let result = dividend / divisor;
             vm.stack.push(result.to_be_bytes().to_vec());

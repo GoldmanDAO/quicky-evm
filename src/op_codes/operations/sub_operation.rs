@@ -20,7 +20,7 @@ impl CodeOperation for SubOperation {
             let result = num2 - num1;
             vm.stack.push(result.to_be_bytes());
         } else {
-            vm.stack.push(0_u8.to_be_bytes().to_vec());
+            vm.stack.push(vec![0x0]);
         }
     }
 }
