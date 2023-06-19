@@ -8,7 +8,7 @@ This tool 🛠️ is written in Rust and decodes Ethereum bytecode into human-re
 
 - **Stack**: It also keeps track of the stack state after each opcode (👷‍♂️ in progress)
 
-- **Run Time Simulation**: It will execute the mnemonic against the stack, accepting jumps and opening new contexts simulating the Ethereum Vitual Machine (👷‍♂️ in progress)
+- **Simulation**: It will execute the mnemonic against the stack, accepting jumps and opening new contexts simulating EVM's runtime (👷‍♂️ in progress)
 
 - **More to come...**
 
