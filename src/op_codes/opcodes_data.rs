@@ -1,6 +1,6 @@
 use crate::op_codes::operations::{
-    add_operation::AddOperation, mul_operation::MulOperation, push_operation::PushOperation,
-    stop_operation::StopOperation, sub_operation::SubOperation,
+    add_operation::AddOperation, lt_operation::LTOperation, mul_operation::MulOperation,
+    push_operation::PushOperation, stop_operation::StopOperation, sub_operation::SubOperation,
 };
 
 // use super::operations::PushOperation;
@@ -34,7 +34,10 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
     opcodes.insert(0x09, Opcode::new("MULMOD".into()));
     opcodes.insert(0x0a, Opcode::new("EXP".into()));
     opcodes.insert(0x0b, Opcode::new("SIGNEXTEND".into()));
-    opcodes.insert(0x10, Opcode::new("LT".into()));
+    opcodes.insert(
+        0x10,
+        Opcode::new_with_operation("LT".into(), Box::new(LTOperation {})),
+    );
     opcodes.insert(0x11, Opcode::new("GT".into()));
     opcodes.insert(0x12, Opcode::new("SLT".into()));
     opcodes.insert(0x13, Opcode::new("SGT".into()));

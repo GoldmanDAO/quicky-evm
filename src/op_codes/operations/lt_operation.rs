@@ -5,8 +5,8 @@ use crate::virtual_machine::ExecutionRuntime;
 use super::super::CodeOperation;
 
 #[derive(Clone)]
-pub struct SubOperation {}
-impl CodeOperation for SubOperation {
+pub struct LTOperation {}
+impl CodeOperation for LTOperation {
     fn execute(&self, vm: &mut ExecutionRuntime, _word: Option<Vec<u8>>) {
         let hex_str1 = hex::encode(vm.stack.pop().unwrap());
         let hex_str2 = hex::encode(vm.stack.pop().unwrap());
@@ -14,14 +14,10 @@ impl CodeOperation for SubOperation {
         let num1 = UBig::from_str_radix(&hex_str1, 16).unwrap();
         let num2 = UBig::from_str_radix(&hex_str2, 16).unwrap();
 
-        if num1 > num2 {
-            let result = num1 - num2;
-            vm.stack.push(result.to_be_bytes());
-        } else if num2 > num1 {
-            let result = num2 - num1;
-            vm.stack.push(result.to_be_bytes());
+        if num1 < num2 {
+            vm.stack.push(vec![0x1]);
         } else {
-            vm.stack.push(0_u8.to_be_bytes().to_vec());
+            vm.stack.push(vec![0x0]);
         }
     }
 }
@@ -31,9 +27,9 @@ mod test {
     use super::*;
 
     #[test]
-    fn test_sub() {
-        let add = SubOperation {};
-        let stack: Vec<Vec<u8>> = vec![vec![0x2], vec![0x2]];
+    fn test_lt() {
+        let add = LTOperation {};
+        let stack: Vec<Vec<u8>> = vec![vec![0x2], vec![0x1]];
         let mut vm = ExecutionRuntime {
             stack,
             bytecode: String::new(),
@@ -42,6 +38,6 @@ mod test {
             byte_position: 0,
         };
         add.execute(&mut vm, None);
-        assert_eq!(vm.stack, vec![vec![0x0]]);
+        assert_eq!(vm.stack, vec![vec![0x1]]);
     }
 }
