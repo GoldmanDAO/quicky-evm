@@ -1,8 +1,9 @@
 use crate::op_codes::operations::{
     add_operation::AddOperation, chainid_operation::ChainIdOperation, div_operation::DivOperation,
-    eq_operation::EQOperation, gt_operation::GTOperation, iszero_operation::IsZeroOperation,
-    lt_operation::LTOperation, mul_operation::MulOperation, pop_operation::PopOperation,
-    push_operation::PushOperation, stop_operation::StopOperation, sub_operation::SubOperation,
+    dup_operation::DupOperation, eq_operation::EQOperation, gt_operation::GTOperation,
+    iszero_operation::IsZeroOperation, lt_operation::LTOperation, mul_operation::MulOperation,
+    pop_operation::PopOperation, push_operation::PushOperation, stop_operation::StopOperation,
+    sub_operation::SubOperation,
 };
 
 // use super::operations::PushOperation;
@@ -127,7 +128,13 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
 
     // Duplication operations ...
     for n in 1..17 {
-        opcodes.insert(0x7F + n, Opcode::new(format!("DUP{}", n).into()));
+        opcodes.insert(
+            0x7F + n,
+            Opcode::new_with_operation(
+                format!("DUP{}", n).into(),
+                Box::new(DupOperation { input: n as usize }),
+            ),
+        );
     }
 
     // Exchange operations ...

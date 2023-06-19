@@ -3,6 +3,7 @@ use crate::virtual_machine::ExecutionRuntime;
 pub mod add_operation;
 pub mod chainid_operation;
 pub mod div_operation;
+pub mod dup_operation;
 pub mod eq_operation;
 pub mod gt_operation;
 pub mod iszero_operation;
