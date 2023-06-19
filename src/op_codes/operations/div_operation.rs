@@ -30,10 +30,10 @@ mod test {
     #[test]
     fn test_div() {
         let div = DivOperation {};
-        let stack: Vec<Vec<u8>> = vec![vec![0x4], vec![0x2]]; // 4 / 2
+        let stack: Vec<Vec<u8>> = vec![vec![0x2a], vec![0x2]]; // 4 / 2
         let mut vm = ExecutionRuntime::new_with_stack(stack);
         div.execute(&mut vm, None);
-        assert_eq!(vm.stack, vec![vec![0x2]]); // 4 / 2 = 2
+        assert_eq!(vm.stack, vec![vec![0x15]]); // 4 / 2 = 2
     }
 
     #[test]

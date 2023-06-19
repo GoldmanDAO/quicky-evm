@@ -12,6 +12,9 @@ pub mod mul_operation;
 pub mod pass_operation;
 pub mod pop_operation;
 pub mod push_operation;
+pub mod sdiv_operation;
+pub mod sgt_operation;
+pub mod slt_operation;
 pub mod stop_operation;
 pub mod sub_operation;
 

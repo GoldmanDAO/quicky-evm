@@ -2,8 +2,8 @@ use crate::op_codes::operations::{
     add_operation::AddOperation, chainid_operation::ChainIdOperation, div_operation::DivOperation,
     dup_operation::DupOperation, eq_operation::EQOperation, gt_operation::GTOperation,
     iszero_operation::IsZeroOperation, lt_operation::LTOperation, mul_operation::MulOperation,
-    pop_operation::PopOperation, push_operation::PushOperation, stop_operation::StopOperation,
-    sub_operation::SubOperation,
+    pop_operation::PopOperation, push_operation::PushOperation, sgt_operation::SGTOperation,
+    slt_operation::SLTOperation, stop_operation::StopOperation, sub_operation::SubOperation,
 };
 
 // use super::operations::PushOperation;
@@ -48,8 +48,14 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         0x11,
         Opcode::new_with_operation("GT".into(), Box::new(GTOperation {})),
     );
-    opcodes.insert(0x12, Opcode::new("SLT".into()));
-    opcodes.insert(0x13, Opcode::new("SGT".into()));
+    opcodes.insert(
+        0x12,
+        Opcode::new_with_operation("SLT".into(), Box::new(SLTOperation {})),
+    );
+    opcodes.insert(
+        0x13,
+        Opcode::new_with_operation("SGT".into(), Box::new(SGTOperation {})),
+    );
     opcodes.insert(
         0x14,
         Opcode::new_with_operation("EQ".into(), Box::new(EQOperation {})),
