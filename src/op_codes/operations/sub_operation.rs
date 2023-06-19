@@ -1,11 +1,10 @@
-use ibig::UBig;
-
-use crate::virtual_machine::ExecutionRuntime;
-
 use super::super::CodeOperation;
+use crate::virtual_machine::ExecutionRuntime;
+use ibig::UBig;
 
 #[derive(Clone)]
 pub struct SubOperation {}
+
 impl CodeOperation for SubOperation {
     fn execute(&self, vm: &mut ExecutionRuntime, _word: Option<Vec<u8>>) {
         let hex_str1 = hex::encode(vm.stack.pop().unwrap());
@@ -32,10 +31,10 @@ mod test {
 
     #[test]
     fn test_sub() {
-        let add = SubOperation {};
+        let sub = SubOperation {};
         let stack: Vec<Vec<u8>> = vec![vec![0x2], vec![0x2]];
         let mut vm = ExecutionRuntime::new_with_stack(stack);
-        add.execute(&mut vm, None);
+        sub.execute(&mut vm, None);
         assert_eq!(vm.stack, vec![vec![0x0]]);
     }
 }
