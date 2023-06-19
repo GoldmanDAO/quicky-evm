@@ -4,7 +4,7 @@ use crate::op_codes::operations::{
     iszero_operation::IsZeroOperation, lt_operation::LTOperation, mul_operation::MulOperation,
     pop_operation::PopOperation, push_operation::PushOperation, sdiv_operation::SDivOperation,
     sgt_operation::SGTOperation, slt_operation::SLTOperation, stop_operation::StopOperation,
-    sub_operation::SubOperation,
+    sub_operation::SubOperation, swap_operation::SwapOperation,
 };
 
 // use super::operations::PushOperation;
@@ -149,7 +149,13 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
 
     // Exchange operations ...
     for n in 1..17 {
-        opcodes.insert(0x8F + n, Opcode::new(format!("SWAP{}", n).into()));
+        opcodes.insert(
+            0x8F + n,
+            Opcode::new_with_operation(
+                format!("SWAP{}", n).into(),
+                Box::new(SwapOperation { input: n as usize }),
+            ),
+        );
     }
 
     // Logging operations ...

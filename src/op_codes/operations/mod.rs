@@ -17,6 +17,7 @@ pub mod sgt_operation;
 pub mod slt_operation;
 pub mod stop_operation;
 pub mod sub_operation;
+pub mod swap_operation;
 
 pub trait CodeOperation: CodeOperationClone {
     fn execute(&self, vm: &mut ExecutionRuntime, word: Option<Vec<u8>>);
