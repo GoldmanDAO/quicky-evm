@@ -1,11 +1,10 @@
-use ibig::UBig;
-
-use crate::virtual_machine::ExecutionRuntime;
-
 use super::super::CodeOperation;
+use crate::virtual_machine::ExecutionRuntime;
+use ibig::UBig;
 
 #[derive(Clone)]
 pub struct LTOperation {}
+
 impl CodeOperation for LTOperation {
     fn execute(&self, vm: &mut ExecutionRuntime, _word: Option<Vec<u8>>) {
         let hex_str1 = hex::encode(vm.stack.pop().unwrap());
