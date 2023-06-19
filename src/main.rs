@@ -4,7 +4,7 @@ pub mod op_codes;
 pub mod virtual_machine;
 
 fn main() {
-    let bytecode = "6002600203";
+    let bytecode = "6002600404";
 
     let chain_settings = ChainSettings { chain_id: 1 };
     let mut runtime = ExecutionRuntime {

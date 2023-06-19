@@ -15,9 +15,14 @@ impl CodeOperation for DivOperation {
 
         if divisor == u8::MIN.into() {
             vm.stack.push(0_u8.to_be_bytes().to_vec());
+        } else if dividend == u8::MIN.into() {
+            vm.stack.push(0_u8.to_be_bytes().to_vec());
+        } else if divisor > dividend {
+            vm.stack.push(0_u8.to_be_bytes().to_vec());
         } else {
             let result = dividend / divisor;
-            vm.stack.push(result.to_be_bytes());
+            vm.stack.push(result.to_be_bytes().to_vec());
+            // println!("{:?}", result);
         }
     }
 }
@@ -29,18 +34,35 @@ mod test {
     #[test]
     fn test_div() {
         let div = DivOperation {};
-        let stack: Vec<Vec<u8>> = vec![vec![0x4], vec![0x8]]; // 8 / 4
+        let stack: Vec<Vec<u8>> = vec![vec![0x4], vec![0x2]]; // 4 / 2
         let mut vm = ExecutionRuntime::new_with_stack(stack);
         div.execute(&mut vm, None);
-        assert_eq!(vm.stack, vec![vec![0x2]]); // 8 / 4 = 2
+        assert_eq!(vm.stack, vec![vec![0x2]]); // 4 / 2 = 2
+    }
+
+    #[test]
+    fn test_dividend_lt_divisor() {
+        let div = DivOperation {};
+        let stack: Vec<Vec<u8>> = vec![vec![0x2], vec![0x4]];
+        let mut vm = ExecutionRuntime::new_with_stack(stack);
+        div.execute(&mut vm, None);
+        assert_eq!(vm.stack, vec![vec![0x0]]);
     }
 
     #[test]
     fn test_div_by_zero() {
         let div = DivOperation {};
-        let stack: Vec<Vec<u8>> = vec![vec![0x0], vec![0x8]]; // 8 / 0
+        let stack: Vec<Vec<u8>> = vec![vec![0x8], vec![0x0]];
         let mut vm = ExecutionRuntime::new_with_stack(stack);
         div.execute(&mut vm, None);
-        assert_eq!(vm.stack, vec![vec![0x0]]); // division by 0 yields 0
+        assert_eq!(vm.stack, vec![vec![0x0]]);
+    }
+    #[test]
+    fn test_div_zero_by_x() {
+        let div = DivOperation {};
+        let stack: Vec<Vec<u8>> = vec![vec![0x0], vec![0x8]];
+        let mut vm = ExecutionRuntime::new_with_stack(stack);
+        div.execute(&mut vm, None);
+        assert_eq!(vm.stack, vec![vec![0x0]]);
     }
 }
