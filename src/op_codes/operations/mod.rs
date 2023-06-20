@@ -1,6 +1,7 @@
 use crate::virtual_machine::ExecutionRuntime;
 
 pub mod add_operation;
+pub mod and_operation;
 pub mod chainid_operation;
 pub mod div_operation;
 pub mod dup_operation;
@@ -9,6 +10,7 @@ pub mod gt_operation;
 pub mod iszero_operation;
 pub mod lt_operation;
 pub mod mul_operation;
+pub mod not_operation;
 pub mod or_operation;
 pub mod pass_operation;
 pub mod pop_operation;
@@ -19,6 +21,7 @@ pub mod slt_operation;
 pub mod stop_operation;
 pub mod sub_operation;
 pub mod swap_operation;
+pub mod xor_operation;
 
 pub trait CodeOperation: CodeOperationClone {
     fn execute(&self, vm: &mut ExecutionRuntime, word: Option<Vec<u8>>);

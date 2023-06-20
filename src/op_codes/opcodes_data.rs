@@ -1,10 +1,11 @@
 use crate::op_codes::operations::{
-    add_operation::AddOperation, chainid_operation::ChainIdOperation, div_operation::DivOperation,
-    dup_operation::DupOperation, eq_operation::EQOperation, gt_operation::GTOperation,
-    iszero_operation::IsZeroOperation, lt_operation::LTOperation, mul_operation::MulOperation,
-    or_operation::OrOperation, pop_operation::PopOperation, push_operation::PushOperation,
-    sdiv_operation::SDivOperation, sgt_operation::SGTOperation, slt_operation::SLTOperation,
-    stop_operation::StopOperation, sub_operation::SubOperation, swap_operation::SwapOperation,
+    add_operation::AddOperation, and_operation::AndOperation, chainid_operation::ChainIdOperation,
+    div_operation::DivOperation, dup_operation::DupOperation, eq_operation::EQOperation,
+    gt_operation::GTOperation, iszero_operation::IsZeroOperation, lt_operation::LTOperation,
+    mul_operation::MulOperation, not_operation::NotOperation, or_operation::OrOperation,
+    pop_operation::PopOperation, push_operation::PushOperation, sdiv_operation::SDivOperation,
+    sgt_operation::SGTOperation, slt_operation::SLTOperation, stop_operation::StopOperation,
+    sub_operation::SubOperation, swap_operation::SwapOperation, xor_operation::XorOperation,
 };
 
 // use super::operations::PushOperation;
@@ -68,13 +69,22 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         0x15,
         Opcode::new_with_operation("ISZERO".into(), Box::new(IsZeroOperation {})),
     );
-    opcodes.insert(0x16, Opcode::new("AND".into()));
+    opcodes.insert(
+        0x16,
+        Opcode::new_with_operation("AND".into(), Box::new(AndOperation {})),
+    );
     opcodes.insert(
         0x17,
         Opcode::new_with_operation("OR".into(), Box::new(OrOperation {})),
     );
-    opcodes.insert(0x18, Opcode::new("XOR".into()));
-    opcodes.insert(0x19, Opcode::new("NOT".into()));
+    opcodes.insert(
+        0x18,
+        Opcode::new_with_operation("XOR".into(), Box::new(XorOperation {})),
+    );
+    opcodes.insert(
+        0x19,
+        Opcode::new_with_operation("NOT".into(), Box::new(NotOperation {})),
+    );
     opcodes.insert(0x1a, Opcode::new("BYTE".into()));
     opcodes.insert(0x1b, Opcode::new("SHL".into()));
     opcodes.insert(0x1c, Opcode::new("SHR".into()));
