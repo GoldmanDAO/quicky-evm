@@ -2,6 +2,7 @@ use crate::virtual_machine::ExecutionRuntime;
 
 pub mod add_operation;
 pub mod and_operation;
+pub mod byte_operation;
 pub mod chainid_operation;
 pub mod div_operation;
 pub mod dup_operation;
