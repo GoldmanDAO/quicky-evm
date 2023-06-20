@@ -9,6 +9,7 @@ pub mod gt_operation;
 pub mod iszero_operation;
 pub mod lt_operation;
 pub mod mul_operation;
+pub mod or_operation;
 pub mod pass_operation;
 pub mod pop_operation;
 pub mod push_operation;
