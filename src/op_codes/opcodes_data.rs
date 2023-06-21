@@ -158,7 +158,7 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         opcodes.insert(
             0x5F + n,
             Opcode {
-                name: format!("PUSH{}", n).into(),
+                name: format!("PUSH{}", n),
                 word_size: Some(n),
                 word: None,
                 operation: Box::new(push_operation),
@@ -171,7 +171,7 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         opcodes.insert(
             0x7F + n,
             Opcode::new_with_operation(
-                format!("DUP{}", n).into(),
+                format!("DUP{}", n),
                 Box::new(DupOperation { input: n as usize }),
             ),
         );
@@ -182,7 +182,7 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         opcodes.insert(
             0x8F + n,
             Opcode::new_with_operation(
-                format!("SWAP{}", n).into(),
+                format!("SWAP{}", n),
                 Box::new(SwapOperation { input: n as usize }),
             ),
         );
@@ -190,7 +190,7 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
 
     // Logging operations ...
     for n in 0..5 {
-        opcodes.insert(0xa0 + n, Opcode::new(format!("LOG{}", n).into()));
+        opcodes.insert(0xa0 + n, Opcode::new(format!("LOG{}", n)));
     }
 
     // Some special purpose opcodes

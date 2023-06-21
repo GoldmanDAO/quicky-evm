@@ -24,7 +24,7 @@ impl CodeOperation for SDivOperation {
                 result = zero;
             }
 
-            vm.stack.push(hex::decode(result).to_owned().unwrap());
+            vm.stack.push(hex::decode(result).unwrap());
         }
     }
 }
