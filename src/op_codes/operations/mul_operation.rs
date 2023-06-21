@@ -1,8 +1,6 @@
-use ibig::UBig;
-
-use crate::virtual_machine::ExecutionRuntime;
-
 use super::super::CodeOperation;
+use crate::virtual_machine::ExecutionRuntime;
+use ibig::UBig;
 
 #[derive(Clone)]
 pub struct MulOperation {}

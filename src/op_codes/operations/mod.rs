@@ -1,6 +1,7 @@
 use crate::virtual_machine::ExecutionRuntime;
 
 pub mod add_operation;
+pub mod addmod_operation;
 pub mod and_operation;
 pub mod byte_operation;
 pub mod chainid_operation;
@@ -10,6 +11,7 @@ pub mod eq_operation;
 pub mod gt_operation;
 pub mod iszero_operation;
 pub mod lt_operation;
+pub mod mod_operation;
 pub mod mul_operation;
 pub mod not_operation;
 pub mod or_operation;
