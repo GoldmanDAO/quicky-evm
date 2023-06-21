@@ -1,12 +1,13 @@
 use crate::op_codes::operations::{
-    add_operation::AddOperation, and_operation::AndOperation, byte_operation::ByteOperation,
-    chainid_operation::ChainIdOperation, div_operation::DivOperation, dup_operation::DupOperation,
-    eq_operation::EQOperation, gt_operation::GTOperation, iszero_operation::IsZeroOperation,
-    lt_operation::LTOperation, mod_operation::ModOperation, mul_operation::MulOperation,
-    not_operation::NotOperation, or_operation::OrOperation, pop_operation::PopOperation,
-    push_operation::PushOperation, sdiv_operation::SDivOperation, sgt_operation::SGTOperation,
-    slt_operation::SLTOperation, smod_operation::SModOperation, stop_operation::StopOperation,
-    sub_operation::SubOperation, swap_operation::SwapOperation, xor_operation::XorOperation,
+    add_operation::AddOperation, addmod_operation::AddModOperation, and_operation::AndOperation,
+    byte_operation::ByteOperation, chainid_operation::ChainIdOperation,
+    div_operation::DivOperation, dup_operation::DupOperation, eq_operation::EQOperation,
+    gt_operation::GTOperation, iszero_operation::IsZeroOperation, lt_operation::LTOperation,
+    mod_operation::ModOperation, mul_operation::MulOperation, not_operation::NotOperation,
+    or_operation::OrOperation, pop_operation::PopOperation, push_operation::PushOperation,
+    sdiv_operation::SDivOperation, sgt_operation::SGTOperation, slt_operation::SLTOperation,
+    smod_operation::SModOperation, stop_operation::StopOperation, sub_operation::SubOperation,
+    swap_operation::SwapOperation, xor_operation::XorOperation,
 };
 
 // use super::operations::PushOperation;
@@ -48,7 +49,10 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         0x07,
         Opcode::new_with_operation("SMOD".into(), Box::new(SModOperation {})),
     );
-    opcodes.insert(0x08, Opcode::new("ADDMOD".into()));
+    opcodes.insert(
+        0x08,
+        Opcode::new_with_operation("ADDMOD".into(), Box::new(AddModOperation {})),
+    );
     opcodes.insert(0x09, Opcode::new("MULMOD".into()));
     opcodes.insert(0x0a, Opcode::new("EXP".into()));
     opcodes.insert(0x0b, Opcode::new("SIGNEXTEND".into()));
