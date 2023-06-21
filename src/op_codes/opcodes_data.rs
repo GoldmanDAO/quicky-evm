@@ -5,8 +5,8 @@ use crate::op_codes::operations::{
     lt_operation::LTOperation, mod_operation::ModOperation, mul_operation::MulOperation,
     not_operation::NotOperation, or_operation::OrOperation, pop_operation::PopOperation,
     push_operation::PushOperation, sdiv_operation::SDivOperation, sgt_operation::SGTOperation,
-    slt_operation::SLTOperation, stop_operation::StopOperation, sub_operation::SubOperation,
-    swap_operation::SwapOperation, xor_operation::XorOperation,
+    slt_operation::SLTOperation, smod_operation::SModOperation, stop_operation::StopOperation,
+    sub_operation::SubOperation, swap_operation::SwapOperation, xor_operation::XorOperation,
 };
 
 // use super::operations::PushOperation;
@@ -44,7 +44,10 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         0x06,
         Opcode::new_with_operation("MOD".into(), Box::new(ModOperation {})),
     );
-    opcodes.insert(0x07, Opcode::new("SMOD".into()));
+    opcodes.insert(
+        0x07,
+        Opcode::new_with_operation("SMOD".into(), Box::new(SModOperation {})),
+    );
     opcodes.insert(0x08, Opcode::new("ADDMOD".into()));
     opcodes.insert(0x09, Opcode::new("MULMOD".into()));
     opcodes.insert(0x0a, Opcode::new("EXP".into()));

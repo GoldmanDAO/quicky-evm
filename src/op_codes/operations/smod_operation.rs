@@ -4,9 +4,9 @@ use crate::virtual_machine::ExecutionRuntime;
 use ibig::IBig;
 
 #[derive(Clone)]
-pub struct ModOperation {}
+pub struct SModOperation {}
 
-impl CodeOperation for ModOperation {
+impl CodeOperation for SModOperation {
     fn execute(&self, vm: &mut ExecutionRuntime, _word: Option<Vec<u8>>) {
         let hex_str1 = hex::encode(vm.stack.pop().unwrap());
         let hex_str2 = hex::encode(vm.stack.pop().unwrap());
@@ -35,11 +35,11 @@ mod test {
     use super::*;
 
     #[test]
-    fn test_mod() {
-        let mod_op = ModOperation {};
+    fn test_smod() {
+        let smod = SModOperation {};
         let stack: Vec<Vec<u8>> = vec![vec![0x3], vec![0xa]];
         let mut vm = ExecutionRuntime::new_with_stack(stack);
-        mod_op.execute(&mut vm, None);
+        smod.execute(&mut vm, None);
         assert_eq!(vm.stack, vec![vec![0x1]]);
     }
 }
