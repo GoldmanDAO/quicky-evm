@@ -1,6 +1,7 @@
 use super::super::CodeOperation;
 use crate::virtual_machine::ExecutionRuntime;
 use ibig::UBig;
+use std;
 
 #[derive(Clone)]
 pub struct SubOperation {}
@@ -13,14 +14,13 @@ impl CodeOperation for SubOperation {
         let num1 = UBig::from_str_radix(&hex_str1, 16).unwrap();
         let num2 = UBig::from_str_radix(&hex_str2, 16).unwrap();
 
-        if num1 > num2 {
-            let result = num1 - num2;
-            vm.stack.push(result.to_be_bytes());
-        } else if num2 > num1 {
-            let result = num2 - num1;
-            vm.stack.push(result.to_be_bytes());
-        } else {
-            vm.stack.push(vec![0x0]);
+        match num1.cmp(&num2) {
+            std::cmp::Ordering::Greater => {
+                let result = num1 - num2;
+                vm.stack.push(result.to_be_bytes());
+            }
+            std::cmp::Ordering::Less => vm.stack.push(vec![0x0]),
+            std::cmp::Ordering::Equal => vm.stack.push(vec![0x0]),
         }
     }
 }
