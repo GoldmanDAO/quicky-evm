@@ -1,6 +1,8 @@
-use super::super::CodeOperation;
-use crate::virtual_machine::ExecutionRuntime;
 use ibig::UBig;
+
+use crate::virtual_machine::ExecutionRuntime;
+
+use super::super::CodeOperation;
 
 #[derive(Clone)]
 pub struct AddOperation {}
