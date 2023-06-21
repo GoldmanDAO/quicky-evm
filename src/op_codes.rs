@@ -1,6 +1,5 @@
 use std::fmt;
 use self::{operations::{pass_operation::PassOperation, CodeOperation}, opcodes_data::get_opcodes};
-use std::num::ParseIntError;
 
 mod opcodes_data;
 pub mod operations;
@@ -52,18 +51,11 @@ impl fmt::Debug for Opcode {
     }
 }
 
-pub fn decode_hex(s: &str) -> Result<Vec<u8>, ParseIntError> {
-    (0..s.len())
-        .step_by(2)
-        .map(|i| u8::from_str_radix(&s[i..i + 2], 16))
-        .collect()
-}
-
 pub fn parse_bytecode(bytecode_string: &str) -> Result<Vec<Opcode>, String> {
     let opcodes = get_opcodes();
 
     let bytecode =
-        decode_hex(bytecode_string).map_err(|e| format!("Failed to decode hex: {}", e))?;
+        hex::decode(bytecode_string).map_err(|e| format!("Failed to decode hex: {}", e))?;
 
     let mut result: Vec<Opcode> = Vec::new();
 

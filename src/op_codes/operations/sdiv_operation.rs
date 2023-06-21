@@ -1,4 +1,3 @@
-use super::super::decode_hex;
 use super::CodeOperation;
 use crate::virtual_machine::ExecutionRuntime;
 use ibig::IBig;
@@ -25,7 +24,7 @@ impl CodeOperation for SDivOperation {
                 result = zero;
             }
 
-            vm.stack.push(decode_hex(&result).to_owned().unwrap());
+            vm.stack.push(hex::decode(result).to_owned().unwrap());
         }
     }
 }
