@@ -13,6 +13,7 @@ pub mod iszero_operation;
 pub mod lt_operation;
 pub mod mod_operation;
 pub mod mul_operation;
+pub mod mulmod_operation;
 pub mod not_operation;
 pub mod or_operation;
 pub mod pass_operation;
