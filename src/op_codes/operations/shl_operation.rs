@@ -1,6 +1,6 @@
 use super::super::CodeOperation;
 use crate::virtual_machine::ExecutionRuntime;
-use ibig::{ubig, UBig};
+use ibig::UBig;
 
 #[derive(Clone)]
 pub struct ShlOperation {}
