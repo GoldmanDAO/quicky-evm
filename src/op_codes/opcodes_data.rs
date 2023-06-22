@@ -6,8 +6,9 @@ use crate::op_codes::operations::{
     mod_operation::ModOperation, mul_operation::MulOperation, mulmod_operation::MulModOperation,
     not_operation::NotOperation, or_operation::OrOperation, pop_operation::PopOperation,
     push_operation::PushOperation, sdiv_operation::SDivOperation, sgt_operation::SGTOperation,
-    slt_operation::SLTOperation, smod_operation::SModOperation, stop_operation::StopOperation,
-    sub_operation::SubOperation, swap_operation::SwapOperation, xor_operation::XorOperation,
+    shl_operation::ShlOperation, slt_operation::SLTOperation, smod_operation::SModOperation,
+    stop_operation::StopOperation, sub_operation::SubOperation, swap_operation::SwapOperation,
+    xor_operation::XorOperation,
 };
 
 // use super::operations::PushOperation;
@@ -103,7 +104,10 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         0x1a,
         Opcode::new_with_operation("BYTE".into(), Box::new(ByteOperation {})),
     );
-    opcodes.insert(0x1b, Opcode::new("SHL".into()));
+    opcodes.insert(
+        0x1b,
+        Opcode::new_with_operation("SHL".into(), Box::new(ShlOperation {})),
+    );
     opcodes.insert(0x1c, Opcode::new("SHR".into()));
     opcodes.insert(0x1d, Opcode::new("SAR".into()));
     opcodes.insert(0x20, Opcode::new("SHA3".into()));
