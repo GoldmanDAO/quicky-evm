@@ -27,7 +27,6 @@ impl CodeOperation for ShrOperation {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::virtual_machine::ExecutionRuntime;
 
     #[test]
     fn test_shr_operation() {
@@ -35,6 +34,6 @@ mod tests {
         let stack: Vec<Vec<u8>> = vec![vec![0x4], vec![0x2]];
         let mut vm = ExecutionRuntime::new_with_stack(stack);
         shr.execute(&mut vm, None);
-        assert_eq!(vm.stack, vec![vec![0x1]]); // 4 >> 2 = 1
+        assert_eq!(vm.stack, vec![vec![0x1]]);
     }
 }
