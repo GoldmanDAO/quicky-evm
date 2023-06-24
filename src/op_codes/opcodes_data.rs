@@ -2,13 +2,13 @@ use crate::op_codes::operations::{
     add_operation::AddOperation, addmod_operation::AddModOperation, and_operation::AndOperation,
     byte_operation::ByteOperation, chainid_operation::ChainIdOperation,
     div_operation::DivOperation, dup_operation::DupOperation, eq_operation::EQOperation,
-    gt_operation::GTOperation, iszero_operation::IsZeroOperation, lt_operation::LTOperation,
-    mod_operation::ModOperation, mul_operation::MulOperation, mulmod_operation::MulModOperation,
-    not_operation::NotOperation, or_operation::OrOperation, pop_operation::PopOperation,
-    push_operation::PushOperation, sdiv_operation::SDivOperation, sgt_operation::SGTOperation,
-    shl_operation::ShlOperation, shr_operation::ShrOperation, slt_operation::SLTOperation,
-    smod_operation::SModOperation, stop_operation::StopOperation, sub_operation::SubOperation,
-    swap_operation::SwapOperation, xor_operation::XorOperation,
+    exp_operation::ExpOperation, gt_operation::GTOperation, iszero_operation::IsZeroOperation,
+    lt_operation::LTOperation, mod_operation::ModOperation, mul_operation::MulOperation,
+    mulmod_operation::MulModOperation, not_operation::NotOperation, or_operation::OrOperation,
+    pop_operation::PopOperation, push_operation::PushOperation, sdiv_operation::SDivOperation,
+    sgt_operation::SGTOperation, shl_operation::ShlOperation, shr_operation::ShrOperation,
+    slt_operation::SLTOperation, smod_operation::SModOperation, stop_operation::StopOperation,
+    sub_operation::SubOperation, swap_operation::SwapOperation, xor_operation::XorOperation,
 };
 
 // use super::operations::PushOperation;
@@ -58,7 +58,10 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         0x09,
         Opcode::new_with_operation("MULMOD".into(), Box::new(MulModOperation {})),
     );
-    opcodes.insert(0x0a, Opcode::new("EXP".into()));
+    opcodes.insert(
+        0x0a,
+        Opcode::new_with_operation("EXP".into(), Box::new(ExpOperation {})),
+    );
     opcodes.insert(0x0b, Opcode::new("SIGNEXTEND".into()));
     opcodes.insert(
         0x10,
