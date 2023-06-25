@@ -6,9 +6,9 @@ use crate::op_codes::operations::{
     lt_operation::LTOperation, mod_operation::ModOperation, mul_operation::MulOperation,
     mulmod_operation::MulModOperation, not_operation::NotOperation, or_operation::OrOperation,
     pop_operation::PopOperation, push_operation::PushOperation, sdiv_operation::SDivOperation,
-    sgt_operation::SGTOperation, shl_operation::ShlOperation, slt_operation::SLTOperation,
-    smod_operation::SModOperation, stop_operation::StopOperation, sub_operation::SubOperation,
-    swap_operation::SwapOperation, xor_operation::XorOperation,
+    sgt_operation::SGTOperation, shl_operation::ShlOperation, shr_operation::ShrOperation,
+    slt_operation::SLTOperation, smod_operation::SModOperation, stop_operation::StopOperation,
+    sub_operation::SubOperation, swap_operation::SwapOperation, xor_operation::XorOperation,
 };
 
 // use super::operations::PushOperation;
