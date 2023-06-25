@@ -6,7 +6,7 @@ use super::super::CodeOperation;
 pub struct PCOperation {}
 impl CodeOperation for PCOperation {
     fn execute(&self, vm: &mut ExecutionRuntime, _word: Option<Vec<u8>>) {
-        vm.stack.push(vec![vm.byte_position as u8]);
+        vm.stack.push(vec![vm.pc as u8]);
     }
 }
 

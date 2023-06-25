@@ -11,7 +11,7 @@ fn main() {
         bytecode: bytecode.to_string(),
         opcodes: Vec::new(),
         runtime_position: 0,
-        byte_position: 0,
+        pc: 0,
         chain_settings: ChainSettings::new(),
         block_info: BlockInfo::from_zero(),
     };

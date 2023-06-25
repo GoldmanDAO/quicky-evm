@@ -9,7 +9,7 @@ fn parses_correctly_simple_bytecode() {
         bytecode: bytecode.to_string(),
         opcodes: Vec::new(),
         runtime_position: 0,
-        byte_position: 0,
+        pc: 0,
         chain_settings: ChainSettings::new(),
         block_info: BlockInfo::from_zero(),
     };
@@ -20,7 +20,7 @@ fn parses_correctly_simple_bytecode() {
     assert_eq!(runtime.stack.len(), 1);
     assert_eq!(runtime.stack[0][0], 0x3);
     assert_eq!(runtime.runtime_position, 3);
-    assert_eq!(runtime.byte_position, 0x5);
+    assert_eq!(runtime.pc, 0x5);
 }
 
 #[test]
@@ -32,7 +32,7 @@ fn stops_running_with_stop() {
         bytecode: bytecode.to_string(),
         opcodes: Vec::new(),
         runtime_position: 0,
-        byte_position: 0,
+        pc: 0,
         chain_settings: ChainSettings::new(),
         block_info: BlockInfo::from_zero(),
     };
