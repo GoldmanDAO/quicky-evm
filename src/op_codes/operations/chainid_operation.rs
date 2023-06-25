@@ -15,7 +15,7 @@ mod test {
     use super::*;
 
     #[test]
-    fn test_add() {
+    fn test_chain_id() {
         let chain_id = ChainIdOperation {};
 
         let stack: Vec<Vec<u8>> = vec![];

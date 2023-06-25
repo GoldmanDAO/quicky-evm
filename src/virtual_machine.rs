@@ -28,6 +28,7 @@ pub struct BlockInfo {
     pub number: u64,
     pub difficulty: u64,
     pub timestamp: u32,
+    pub base_fee: u64,
 }
 
 impl BlockInfo {
@@ -38,6 +39,7 @@ impl BlockInfo {
             number: 69,
             difficulty: 0,
             timestamp: 1687712200,
+            base_fee: 0xa,
         }
     }
 }

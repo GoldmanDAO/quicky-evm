@@ -1,17 +1,18 @@
 use crate::op_codes::operations::{
     add_operation::AddOperation, addmod_operation::AddModOperation, and_operation::AndOperation,
-    blockhash_operation::BlockHashOperation, byte_operation::ByteOperation,
-    chainid_operation::ChainIdOperation, coinbase_operation::CoinbaseOperation,
-    difficulty_operation::DifficultyOperation, div_operation::DivOperation,
-    dup_operation::DupOperation, eq_operation::EQOperation, exp_operation::ExpOperation,
-    gaslimit_operation::GasLimitOperation, gasprice_operation::GasPriceOperation,
-    gt_operation::GTOperation, iszero_operation::IsZeroOperation, lt_operation::LTOperation,
-    mod_operation::ModOperation, mul_operation::MulOperation, mulmod_operation::MulModOperation,
-    not_operation::NotOperation, number_operation::NumberOperation, or_operation::OrOperation,
-    pc_operation::PCOperation, pop_operation::PopOperation, push_operation::PushOperation,
-    sdiv_operation::SDivOperation, sgt_operation::SGTOperation, shl_operation::ShlOperation,
-    shr_operation::ShrOperation, slt_operation::SLTOperation, smod_operation::SModOperation,
-    stop_operation::StopOperation, sub_operation::SubOperation, swap_operation::SwapOperation,
+    basefee_operation::BaseFeeOperation, blockhash_operation::BlockHashOperation,
+    byte_operation::ByteOperation, chainid_operation::ChainIdOperation,
+    coinbase_operation::CoinbaseOperation, difficulty_operation::DifficultyOperation,
+    div_operation::DivOperation, dup_operation::DupOperation, eq_operation::EQOperation,
+    exp_operation::ExpOperation, gaslimit_operation::GasLimitOperation,
+    gasprice_operation::GasPriceOperation, gt_operation::GTOperation,
+    iszero_operation::IsZeroOperation, lt_operation::LTOperation, mod_operation::ModOperation,
+    mul_operation::MulOperation, mulmod_operation::MulModOperation, not_operation::NotOperation,
+    number_operation::NumberOperation, or_operation::OrOperation, pc_operation::PCOperation,
+    pop_operation::PopOperation, push_operation::PushOperation, sdiv_operation::SDivOperation,
+    sgt_operation::SGTOperation, shl_operation::ShlOperation, shr_operation::ShrOperation,
+    slt_operation::SLTOperation, smod_operation::SModOperation, stop_operation::StopOperation,
+    sub_operation::SubOperation, swap_operation::SwapOperation,
     timestamp_operation::TimestampOperation, xor_operation::XorOperation,
 };
 
@@ -169,7 +170,10 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         Opcode::new_with_operation("CHAINID".into(), Box::new(ChainIdOperation {})),
     );
     opcodes.insert(0x47, Opcode::new("SELFBALANCE".into()));
-    opcodes.insert(0x48, Opcode::new("BASEFEE".into()));
+    opcodes.insert(
+        0x48,
+        Opcode::new_with_operation("BASEFEE".into(), Box::new(BaseFeeOperation {})),
+    );
     // Log and memory operations ...
     opcodes.insert(
         0x50,
