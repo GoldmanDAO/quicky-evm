@@ -102,8 +102,10 @@ impl ExecutionRuntime {
             opcode.operation.execute(self, opcode.word.clone());
             println!("Stack: {}", self.stack_to_string());
 
-            self.pc += 1 + opcode.word.as_ref().map_or(0, |word| word.len());
-            self.runtime_position += 1;
+            if !opcode.name.contains("JUMP") {
+                self.pc += 1 + opcode.word.as_ref().map_or(0, |word| word.len());
+                self.runtime_position += 1;
+            }
         }
     }
 }

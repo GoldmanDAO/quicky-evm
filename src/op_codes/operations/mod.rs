@@ -17,6 +17,7 @@ pub mod gaslimit_operation;
 pub mod gasprice_operation;
 pub mod gt_operation;
 pub mod iszero_operation;
+pub mod jump_operation;
 pub mod lt_operation;
 pub mod mod_operation;
 pub mod mul_operation;

@@ -5,6 +5,8 @@ pub mod virtual_machine;
 
 fn main() {
     let bytecode = "6002600404";
+    // TODO: Test the jump once conditionals
+    // let bytecode = "60016002600256";
 
     let mut runtime = ExecutionRuntime {
         stack: Vec::new(),
