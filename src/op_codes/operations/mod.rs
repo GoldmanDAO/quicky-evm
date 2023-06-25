@@ -18,6 +18,7 @@ pub mod mod_operation;
 pub mod mul_operation;
 pub mod mulmod_operation;
 pub mod not_operation;
+pub mod number_operation;
 pub mod or_operation;
 pub mod pass_operation;
 pub mod pc_operation;

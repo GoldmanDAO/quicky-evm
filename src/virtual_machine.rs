@@ -15,6 +15,7 @@ pub struct ChainSettings {
 pub struct BlockInfo {
     pub coinbase: EthereumAddress,
     pub gas_price: UBig,
+    pub number: u64,
 }
 
 impl BlockInfo {
@@ -22,6 +23,7 @@ impl BlockInfo {
         BlockInfo {
             coinbase: EthereumAddress([0; 20]),
             gas_price: UBig::from_be_bytes(&vec![0xa]),
+            number: 69,
         }
     }
 }
