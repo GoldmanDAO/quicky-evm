@@ -11,8 +11,9 @@ use crate::op_codes::operations::{
     not_operation::NotOperation, number_operation::NumberOperation, or_operation::OrOperation,
     pc_operation::PCOperation, pop_operation::PopOperation, push_operation::PushOperation,
     sdiv_operation::SDivOperation, sgt_operation::SGTOperation, shl_operation::ShlOperation,
-    shr_operation::ShrOperation, slt_operation::SLTOperation, smod_operation::SModOperation,
-    stop_operation::StopOperation, sub_operation::SubOperation, swap_operation::SwapOperation,
+    shr_operation::ShrOperation, signextend_operation::SignExtendOperation,
+    slt_operation::SLTOperation, smod_operation::SModOperation, stop_operation::StopOperation,
+    sub_operation::SubOperation, swap_operation::SwapOperation,
     timestamp_operation::TimestampOperation, xor_operation::XorOperation,
 };
 
