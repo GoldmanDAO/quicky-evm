@@ -5,10 +5,11 @@ use crate::op_codes::operations::{
     exp_operation::ExpOperation, gt_operation::GTOperation, iszero_operation::IsZeroOperation,
     lt_operation::LTOperation, mod_operation::ModOperation, mul_operation::MulOperation,
     mulmod_operation::MulModOperation, not_operation::NotOperation, or_operation::OrOperation,
-    pop_operation::PopOperation, push_operation::PushOperation, sdiv_operation::SDivOperation,
-    sgt_operation::SGTOperation, shl_operation::ShlOperation, shr_operation::ShrOperation,
-    slt_operation::SLTOperation, smod_operation::SModOperation, stop_operation::StopOperation,
-    sub_operation::SubOperation, swap_operation::SwapOperation, xor_operation::XorOperation,
+    pc_operation::PCOperation, pop_operation::PopOperation, push_operation::PushOperation,
+    sdiv_operation::SDivOperation, sgt_operation::SGTOperation, shl_operation::ShlOperation,
+    shr_operation::ShrOperation, slt_operation::SLTOperation, smod_operation::SModOperation,
+    stop_operation::StopOperation, sub_operation::SubOperation, swap_operation::SwapOperation,
+    xor_operation::XorOperation,
 };
 
 // use super::operations::PushOperation;
@@ -157,7 +158,10 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
     opcodes.insert(0x55, Opcode::new("SSTORE".into()));
     opcodes.insert(0x56, Opcode::new("JUMP".into()));
     opcodes.insert(0x57, Opcode::new("JUMPI".into()));
-    opcodes.insert(0x58, Opcode::new("PC".into()));
+    opcodes.insert(
+        0x58,
+        Opcode::new_with_operation("PC".into(), Box::new(PCOperation {})),
+    );
     opcodes.insert(0x59, Opcode::new("MSIZE".into()));
     opcodes.insert(0x5a, Opcode::new("GAS".into()));
     opcodes.insert(0x5b, Opcode::new("JUMPDEST".into()));
