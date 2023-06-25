@@ -3,6 +3,7 @@ use crate::virtual_machine::ExecutionRuntime;
 pub mod add_operation;
 pub mod addmod_operation;
 pub mod and_operation;
+pub mod blockhash_operation;
 pub mod byte_operation;
 pub mod chainid_operation;
 pub mod coinbase_operation;
