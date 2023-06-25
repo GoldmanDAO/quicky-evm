@@ -1,7 +1,29 @@
 use super::op_codes::parse_bytecode;
+use ibig::UBig;
+
+pub struct EthereumAddress(pub [u8; 20]);
+impl EthereumAddress {
+    pub fn as_bytes(&self) -> &[u8; 20] {
+        &self.0
+    }
+}
 
 pub struct ChainSettings {
     pub chain_id: u8,
+}
+
+pub struct BlockInfo {
+    pub coinbase: EthereumAddress,
+    pub gas_price: UBig,
+}
+
+impl BlockInfo {
+    pub fn from_zero() -> BlockInfo {
+        BlockInfo {
+            coinbase: EthereumAddress([0; 20]),
+            gas_price: UBig::from_be_bytes(&vec![0xa]),
+        }
+    }
 }
 
 pub struct ExecutionRuntime {
@@ -11,11 +33,13 @@ pub struct ExecutionRuntime {
     pub runtime_position: usize,
     pub byte_position: usize,
     pub chain_settings: ChainSettings,
+    pub block_info: BlockInfo,
 }
 
 impl ExecutionRuntime {
     pub fn new_with_stack(stack: Vec<Vec<u8>>) -> ExecutionRuntime {
         let chain_settings = ChainSettings { chain_id: 1 };
+
         ExecutionRuntime {
             stack,
             bytecode: String::new(),
@@ -23,6 +47,7 @@ impl ExecutionRuntime {
             runtime_position: 0,
             byte_position: 0,
             chain_settings,
+            block_info: BlockInfo::from_zero(),
         }
     }
 

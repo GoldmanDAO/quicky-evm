@@ -1,4 +1,4 @@
-use quicky_evm::virtual_machine::{ChainSettings, ExecutionRuntime};
+use quicky_evm::virtual_machine::{BlockInfo, ChainSettings, ExecutionRuntime};
 
 #[test]
 fn parses_correctly_simple_bytecode() {
@@ -12,6 +12,7 @@ fn parses_correctly_simple_bytecode() {
         runtime_position: 0,
         byte_position: 0,
         chain_settings,
+        block_info: BlockInfo::from_zero(),
     };
 
     runtime.run();
@@ -35,6 +36,7 @@ fn stops_running_with_stop() {
         runtime_position: 0,
         byte_position: 0,
         chain_settings,
+        block_info: BlockInfo::from_zero(),
     };
 
     runtime.run();

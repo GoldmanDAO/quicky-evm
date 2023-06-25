@@ -1,4 +1,4 @@
-use virtual_machine::{ChainSettings, ExecutionRuntime};
+use virtual_machine::{BlockInfo, ChainSettings, ExecutionRuntime};
 
 pub mod op_codes;
 pub mod virtual_machine;
@@ -14,6 +14,7 @@ fn main() {
         runtime_position: 0,
         byte_position: 0,
         chain_settings,
+        block_info: BlockInfo::from_zero(),
     };
 
     runtime.run();

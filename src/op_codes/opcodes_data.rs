@@ -1,15 +1,16 @@
 use crate::op_codes::operations::{
     add_operation::AddOperation, addmod_operation::AddModOperation, and_operation::AndOperation,
     byte_operation::ByteOperation, chainid_operation::ChainIdOperation,
-    div_operation::DivOperation, dup_operation::DupOperation, eq_operation::EQOperation,
-    exp_operation::ExpOperation, gt_operation::GTOperation, iszero_operation::IsZeroOperation,
-    lt_operation::LTOperation, mod_operation::ModOperation, mul_operation::MulOperation,
-    mulmod_operation::MulModOperation, not_operation::NotOperation, or_operation::OrOperation,
-    pc_operation::PCOperation, pop_operation::PopOperation, push_operation::PushOperation,
-    sdiv_operation::SDivOperation, sgt_operation::SGTOperation, shl_operation::ShlOperation,
-    shr_operation::ShrOperation, slt_operation::SLTOperation, smod_operation::SModOperation,
-    stop_operation::StopOperation, sub_operation::SubOperation, swap_operation::SwapOperation,
-    xor_operation::XorOperation,
+    coinbase_operation::CoinbaseOperation, div_operation::DivOperation,
+    dup_operation::DupOperation, eq_operation::EQOperation, exp_operation::ExpOperation,
+    gasprice_operation::GasPriceOperation, gt_operation::GTOperation,
+    iszero_operation::IsZeroOperation, lt_operation::LTOperation, mod_operation::ModOperation,
+    mul_operation::MulOperation, mulmod_operation::MulModOperation, not_operation::NotOperation,
+    or_operation::OrOperation, pc_operation::PCOperation, pop_operation::PopOperation,
+    push_operation::PushOperation, sdiv_operation::SDivOperation, sgt_operation::SGTOperation,
+    shl_operation::ShlOperation, shr_operation::ShrOperation, slt_operation::SLTOperation,
+    smod_operation::SModOperation, stop_operation::StopOperation, sub_operation::SubOperation,
+    swap_operation::SwapOperation, xor_operation::XorOperation,
 };
 
 // use super::operations::PushOperation;
@@ -128,14 +129,20 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
     opcodes.insert(0x37, Opcode::new("CALLDATACOPY".into()));
     opcodes.insert(0x38, Opcode::new("CODESIZE".into()));
     opcodes.insert(0x39, Opcode::new("CODECOPY".into()));
-    opcodes.insert(0x3a, Opcode::new("GASPRICE".into()));
+    opcodes.insert(
+        0x3a,
+        Opcode::new_with_operation("GASPRICE".into(), Box::new(GasPriceOperation {})),
+    );
     opcodes.insert(0x3b, Opcode::new("EXTCODESIZE".into()));
     opcodes.insert(0x3c, Opcode::new("EXTCODECOPY".into()));
     opcodes.insert(0x3d, Opcode::new("RETURNDATASIZE".into()));
     opcodes.insert(0x3e, Opcode::new("RETURNDATACOPY".into()));
     opcodes.insert(0x3f, Opcode::new("EXTCODEHASH".into()));
     opcodes.insert(0x40, Opcode::new("BLOCKHASH".into()));
-    opcodes.insert(0x41, Opcode::new("COINBASE".into()));
+    opcodes.insert(
+        0x41,
+        Opcode::new_with_operation("COINBASE".into(), Box::new(CoinbaseOperation {})),
+    );
     opcodes.insert(0x42, Opcode::new("TIMESTAMP".into()));
     opcodes.insert(0x43, Opcode::new("NUMBER".into()));
     opcodes.insert(0x44, Opcode::new("DIFFICULTY".into()));
