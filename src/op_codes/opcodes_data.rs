@@ -111,7 +111,10 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         0x1b,
         Opcode::new_with_operation("SHL".into(), Box::new(ShlOperation {})),
     );
-    opcodes.insert(0x1c, Opcode::new("SHR".into()));
+    opcodes.insert(
+        0x1c,
+        Opcode::new_with_operation("SHR".into(), Box::new(ShrOperation {})),
+    );
     opcodes.insert(0x1d, Opcode::new("SAR".into()));
     opcodes.insert(0x20, Opcode::new("SHA3".into()));
     opcodes.insert(0x30, Opcode::new("ADDRESS".into()));
