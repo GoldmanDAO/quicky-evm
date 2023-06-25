@@ -4,14 +4,13 @@ use quicky_evm::virtual_machine::{BlockInfo, ChainSettings, ExecutionRuntime};
 fn parses_correctly_simple_bytecode() {
     let bytecode = "6001600201";
 
-    let chain_settings = ChainSettings { chain_id: 1 };
     let mut runtime = ExecutionRuntime {
         stack: Vec::new(),
         bytecode: bytecode.to_string(),
         opcodes: Vec::new(),
         runtime_position: 0,
         byte_position: 0,
-        chain_settings,
+        chain_settings: ChainSettings::new(),
         block_info: BlockInfo::from_zero(),
     };
 
@@ -28,14 +27,13 @@ fn parses_correctly_simple_bytecode() {
 fn stops_running_with_stop() {
     let bytecode = "6001006002";
 
-    let chain_settings = ChainSettings { chain_id: 1 };
     let mut runtime = ExecutionRuntime {
         stack: Vec::new(),
         bytecode: bytecode.to_string(),
         opcodes: Vec::new(),
         runtime_position: 0,
         byte_position: 0,
-        chain_settings,
+        chain_settings: ChainSettings::new(),
         block_info: BlockInfo::from_zero(),
     };
 

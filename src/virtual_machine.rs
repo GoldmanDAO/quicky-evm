@@ -10,6 +10,16 @@ impl EthereumAddress {
 
 pub struct ChainSettings {
     pub chain_id: u8,
+    pub gas_limit: u64,
+}
+
+impl ChainSettings {
+    pub fn new() -> ChainSettings {
+        ChainSettings {
+            chain_id: 1,
+            gas_limit: 0xffffffffffff,
+        }
+    }
 }
 
 pub struct BlockInfo {
@@ -44,15 +54,13 @@ pub struct ExecutionRuntime {
 
 impl ExecutionRuntime {
     pub fn new_with_stack(stack: Vec<Vec<u8>>) -> ExecutionRuntime {
-        let chain_settings = ChainSettings { chain_id: 1 };
-
         ExecutionRuntime {
             stack,
             bytecode: String::new(),
             opcodes: Vec::new(),
             runtime_position: 0,
             byte_position: 0,
-            chain_settings,
+            chain_settings: ChainSettings::new(),
             block_info: BlockInfo::from_zero(),
         }
     }

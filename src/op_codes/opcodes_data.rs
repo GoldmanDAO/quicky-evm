@@ -3,7 +3,8 @@ use crate::op_codes::operations::{
     byte_operation::ByteOperation, chainid_operation::ChainIdOperation,
     coinbase_operation::CoinbaseOperation, difficulty_operation::DifficultyOperation,
     div_operation::DivOperation, dup_operation::DupOperation, eq_operation::EQOperation,
-    exp_operation::ExpOperation, gasprice_operation::GasPriceOperation, gt_operation::GTOperation,
+    exp_operation::ExpOperation, gaslimit_operation::GasLimitOperation,
+    gasprice_operation::GasPriceOperation, gt_operation::GTOperation,
     iszero_operation::IsZeroOperation, lt_operation::LTOperation, mod_operation::ModOperation,
     mul_operation::MulOperation, mulmod_operation::MulModOperation, not_operation::NotOperation,
     number_operation::NumberOperation, or_operation::OrOperation, pc_operation::PCOperation,
@@ -156,7 +157,10 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         0x44,
         Opcode::new_with_operation("DIFFICULTY".into(), Box::new(DifficultyOperation {})),
     );
-    opcodes.insert(0x45, Opcode::new("GASLIMIT".into()));
+    opcodes.insert(
+        0x45,
+        Opcode::new_with_operation("GASLIMIT".into(), Box::new(GasLimitOperation {})),
+    );
     opcodes.insert(
         0x46,
         Opcode::new_with_operation("CHAINID".into(), Box::new(ChainIdOperation {})),
