@@ -11,9 +11,10 @@ use crate::op_codes::operations::{
     number_operation::NumberOperation, or_operation::OrOperation, pc_operation::PCOperation,
     pop_operation::PopOperation, push_operation::PushOperation, sdiv_operation::SDivOperation,
     sgt_operation::SGTOperation, shl_operation::ShlOperation, shr_operation::ShrOperation,
-    slt_operation::SLTOperation, smod_operation::SModOperation, stop_operation::StopOperation,
-    sub_operation::SubOperation, swap_operation::SwapOperation,
-    timestamp_operation::TimestampOperation, xor_operation::XorOperation,
+    signextend_operation::SignExtendOperation, slt_operation::SLTOperation,
+    smod_operation::SModOperation, stop_operation::StopOperation, sub_operation::SubOperation,
+    swap_operation::SwapOperation, timestamp_operation::TimestampOperation,
+    xor_operation::XorOperation,
 };
 
 // use super::operations::PushOperation;
@@ -67,7 +68,10 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         0x0a,
         Opcode::new_with_operation("EXP".into(), Box::new(ExpOperation {})),
     );
-    opcodes.insert(0x0b, Opcode::new("SIGNEXTEND".into()));
+    opcodes.insert(
+        0x0b,
+        Opcode::new_with_operation("SIGNEXTEND".into(), Box::new(SignExtendOperation {})),
+    );
     opcodes.insert(
         0x10,
         Opcode::new_with_operation("LT".into(), Box::new(LTOperation {})),
