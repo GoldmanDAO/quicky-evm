@@ -6,15 +6,16 @@ use crate::op_codes::operations::{
     div_operation::DivOperation, dup_operation::DupOperation, eq_operation::EQOperation,
     exp_operation::ExpOperation, gaslimit_operation::GasLimitOperation,
     gasprice_operation::GasPriceOperation, gt_operation::GTOperation,
-    iszero_operation::IsZeroOperation, jump_operation::JumpOperation, lt_operation::LTOperation,
-    mod_operation::ModOperation, mul_operation::MulOperation, mulmod_operation::MulModOperation,
-    not_operation::NotOperation, number_operation::NumberOperation, or_operation::OrOperation,
-    pc_operation::PCOperation, pop_operation::PopOperation, push_operation::PushOperation,
-    sdiv_operation::SDivOperation, sgt_operation::SGTOperation, shl_operation::ShlOperation,
-    shr_operation::ShrOperation, signextend_operation::SignExtendOperation,
-    slt_operation::SLTOperation, smod_operation::SModOperation, stop_operation::StopOperation,
-    sub_operation::SubOperation, swap_operation::SwapOperation,
-    timestamp_operation::TimestampOperation, xor_operation::XorOperation,
+    iszero_operation::IsZeroOperation, jump_operation::JumpOperation,
+    jumpi_operation::JumpIOperation, lt_operation::LTOperation, mod_operation::ModOperation,
+    mul_operation::MulOperation, mulmod_operation::MulModOperation, not_operation::NotOperation,
+    number_operation::NumberOperation, or_operation::OrOperation, pc_operation::PCOperation,
+    pop_operation::PopOperation, push_operation::PushOperation, sdiv_operation::SDivOperation,
+    sgt_operation::SGTOperation, shl_operation::ShlOperation, shr_operation::ShrOperation,
+    signextend_operation::SignExtendOperation, slt_operation::SLTOperation,
+    smod_operation::SModOperation, stop_operation::StopOperation, sub_operation::SubOperation,
+    swap_operation::SwapOperation, timestamp_operation::TimestampOperation,
+    xor_operation::XorOperation,
 };
 
 // use super::operations::PushOperation;
@@ -192,7 +193,10 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         0x56,
         Opcode::new_with_operation("JUMP".into(), Box::new(JumpOperation {})),
     );
-    opcodes.insert(0x57, Opcode::new("JUMPI".into()));
+    opcodes.insert(
+        0x57,
+        Opcode::new_with_operation("JUMPI".into(), Box::new(JumpIOperation {})),
+    );
     opcodes.insert(
         0x58,
         Opcode::new_with_operation("PC".into(), Box::new(PCOperation {})),
