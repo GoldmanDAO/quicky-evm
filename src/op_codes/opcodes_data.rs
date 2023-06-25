@@ -1,16 +1,17 @@
 use crate::op_codes::operations::{
     add_operation::AddOperation, addmod_operation::AddModOperation, and_operation::AndOperation,
     byte_operation::ByteOperation, chainid_operation::ChainIdOperation,
-    coinbase_operation::CoinbaseOperation, div_operation::DivOperation,
-    dup_operation::DupOperation, eq_operation::EQOperation, exp_operation::ExpOperation,
-    gasprice_operation::GasPriceOperation, gt_operation::GTOperation,
+    coinbase_operation::CoinbaseOperation, difficulty_operation::DifficultyOperation,
+    div_operation::DivOperation, dup_operation::DupOperation, eq_operation::EQOperation,
+    exp_operation::ExpOperation, gasprice_operation::GasPriceOperation, gt_operation::GTOperation,
     iszero_operation::IsZeroOperation, lt_operation::LTOperation, mod_operation::ModOperation,
     mul_operation::MulOperation, mulmod_operation::MulModOperation, not_operation::NotOperation,
     number_operation::NumberOperation, or_operation::OrOperation, pc_operation::PCOperation,
     pop_operation::PopOperation, push_operation::PushOperation, sdiv_operation::SDivOperation,
     sgt_operation::SGTOperation, shl_operation::ShlOperation, shr_operation::ShrOperation,
     slt_operation::SLTOperation, smod_operation::SModOperation, stop_operation::StopOperation,
-    sub_operation::SubOperation, swap_operation::SwapOperation, xor_operation::XorOperation,
+    sub_operation::SubOperation, swap_operation::SwapOperation,
+    timestamp_operation::TimestampOperation, xor_operation::XorOperation,
 };
 
 // use super::operations::PushOperation;
@@ -143,12 +144,18 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         0x41,
         Opcode::new_with_operation("COINBASE".into(), Box::new(CoinbaseOperation {})),
     );
-    opcodes.insert(0x42, Opcode::new("TIMESTAMP".into()));
+    opcodes.insert(
+        0x42,
+        Opcode::new_with_operation("TIMESTAMP".into(), Box::new(TimestampOperation {})),
+    );
     opcodes.insert(
         0x43,
         Opcode::new_with_operation("NUMBER".into(), Box::new(NumberOperation {})),
     );
-    opcodes.insert(0x44, Opcode::new("DIFFICULTY".into()));
+    opcodes.insert(
+        0x44,
+        Opcode::new_with_operation("DIFFICULTY".into(), Box::new(DifficultyOperation {})),
+    );
     opcodes.insert(0x45, Opcode::new("GASLIMIT".into()));
     opcodes.insert(
         0x46,

@@ -6,6 +6,7 @@ pub mod and_operation;
 pub mod byte_operation;
 pub mod chainid_operation;
 pub mod coinbase_operation;
+pub mod difficulty_operation;
 pub mod div_operation;
 pub mod dup_operation;
 pub mod eq_operation;
@@ -33,6 +34,7 @@ pub mod smod_operation;
 pub mod stop_operation;
 pub mod sub_operation;
 pub mod swap_operation;
+pub mod timestamp_operation;
 pub mod xor_operation;
 
 pub trait CodeOperation: CodeOperationClone {
