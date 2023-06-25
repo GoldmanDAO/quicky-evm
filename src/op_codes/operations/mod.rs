@@ -33,6 +33,7 @@ pub mod sdiv_operation;
 pub mod sgt_operation;
 pub mod shl_operation;
 pub mod shr_operation;
+pub mod signextend_operation;
 pub mod slt_operation;
 pub mod smod_operation;
 pub mod stop_operation;

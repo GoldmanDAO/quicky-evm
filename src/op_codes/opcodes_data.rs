@@ -67,7 +67,10 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         0x0a,
         Opcode::new_with_operation("EXP".into(), Box::new(ExpOperation {})),
     );
-    opcodes.insert(0x0b, Opcode::new("SIGNEXTEND".into()));
+    opcodes.insert(
+        0x0b,
+        Opcode::new_with_operation("SIGNEXTEND".into(), Box::new(SignExtendOperation {})),
+    );
     opcodes.insert(
         0x10,
         Opcode::new_with_operation("LT".into(), Box::new(LTOperation {})),
