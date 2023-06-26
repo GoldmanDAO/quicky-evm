@@ -10,12 +10,12 @@ use crate::op_codes::operations::{
     jumpi_operation::JumpIOperation, lt_operation::LTOperation, mod_operation::ModOperation,
     mul_operation::MulOperation, mulmod_operation::MulModOperation, not_operation::NotOperation,
     number_operation::NumberOperation, or_operation::OrOperation, pc_operation::PCOperation,
-    pop_operation::PopOperation, push_operation::PushOperation, sdiv_operation::SDivOperation,
-    sgt_operation::SGTOperation, shl_operation::ShlOperation, shr_operation::ShrOperation,
-    signextend_operation::SignExtendOperation, slt_operation::SLTOperation,
-    smod_operation::SModOperation, stop_operation::StopOperation, sub_operation::SubOperation,
-    swap_operation::SwapOperation, timestamp_operation::TimestampOperation,
-    xor_operation::XorOperation,
+    pop_operation::PopOperation, push_operation::PushOperation, sar_operation::SarOperation,
+    sdiv_operation::SDivOperation, sgt_operation::SGTOperation, shl_operation::ShlOperation,
+    shr_operation::ShrOperation, signextend_operation::SignExtendOperation,
+    slt_operation::SLTOperation, smod_operation::SModOperation, stop_operation::StopOperation,
+    sub_operation::SubOperation, swap_operation::SwapOperation,
+    timestamp_operation::TimestampOperation, xor_operation::XorOperation,
 };
 
 // use super::operations::PushOperation;
@@ -125,7 +125,10 @@ pub fn get_opcodes() -> HashMap<u8, Opcode> {
         0x1c,
         Opcode::new_with_operation("SHR".into(), Box::new(ShrOperation {})),
     );
-    opcodes.insert(0x1d, Opcode::new("SAR".into()));
+    opcodes.insert(
+        0x1d,
+        Opcode::new_with_operation("SAR".into(), Box::new(SarOperation {})),
+    );
     opcodes.insert(0x20, Opcode::new("SHA3".into()));
     opcodes.insert(0x30, Opcode::new("ADDRESS".into()));
     opcodes.insert(0x31, Opcode::new("BALANCE".into()));

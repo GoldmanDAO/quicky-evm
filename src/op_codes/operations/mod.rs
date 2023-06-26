@@ -30,6 +30,7 @@ pub mod pass_operation;
 pub mod pc_operation;
 pub mod pop_operation;
 pub mod push_operation;
+pub mod sar_operation;
 pub mod sdiv_operation;
 pub mod sgt_operation;
 pub mod shl_operation;
